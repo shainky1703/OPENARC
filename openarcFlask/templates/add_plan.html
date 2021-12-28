@@ -1,0 +1,189 @@
+{% extends 'dashboard.html' %}
+{% block extra_css %}
+	<link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet">
+{% endblock %}
+{% block content %}
+    <div class="app-main__outer">
+        <div class="app-main__inner">
+            {% if mode == 'add' %}
+            	<ul class="body-tabs body-tabs-layout tabs-animated body-tabs-animated nav">
+                    <li class="nav-item">
+                        <a role="tab" class="nav-link active" id="tab-0" data-toggle="tab" href="#tab-content-0">
+                        <span>ADD PLAN</span>
+                        </a>
+                    </li>
+                </ul>
+                <div class="alert alert-danger" id="empty_fields" style="display: none;">
+                  <strong>Error!</strong>Please fill all the fields!
+                </div>
+                <div class="alert alert-danger" id="error_msg" style="display: none;">
+                  
+                </div>
+                <div class="alert alert-success" id="success_msg" style="display: none;">
+                  <strong>Success!</strong>Plan Created Successfully!!
+                </div>
+                <div class="tab-content">
+                    <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
+                        <div class="main-card mb-3 card">
+                            <div class="card-body">
+                                <form class="">
+                                    <div class="form-row">
+                                        <div class="col-md-12">
+                                            <div class="position-relative form-group"><label for="exampleEmail11" class="">Plan Name</label><input name="plan_name" id="plan_name" placeholder="Plan Name" type="text" class="form-control"></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="col-md-12">
+                                            <div class="position-relative form-group"><label for="exampleEmail11" class="">Description</label><input name="plan_description" id="plan_description" placeholder="Plan Description" type="text" class="form-control"></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="col-md-6">
+                                            <div class="position-relative form-group"><label for="exampleEmail11" class="">Monthly Price</label><input name="monthly_plan_price" id="monthly_plan_price" placeholder="Monthly Price" type="text" class="form-control"></div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="position-relative form-group"><label for="exampleEmail11" class="">Yearly Price</label><input name="yearly_plan_price" id="yearly_plan_price" placeholder="Yearly Price" type="text" class="form-control"></div>
+                                        </div>    
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="col-md-6">
+                                            <div class="position-relative form-group"><label for="exampleEmail11" class="">Monthly Payment</label><input name="monthly_plan_payment" id="monthly_plan_payment" placeholder="Monthly Payment" type="text" class="form-control"></div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="position-relative form-group"><label for="exampleEmail11" class="">Yearly Payment</label><input name="yearly_plan_payment" id="yearly_plan_payment" placeholder="Yearly Payment" type="text" class="form-control"></div>
+                                        </div>    
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="col-md-6">
+                                            <div class="position-relative form-group"><label for="exampleEmail11" class="">Reconnection Fees</label><input name="reconnection_fees" id="reconnection_fees" placeholder="Reconnection Fees" type="text" class="form-control"></div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="position-relative form-group"><label for="exampleEmail11" class="">Link Up Charges</label><input name="link_up_charges" id="link_up_charges" placeholder="Link Up Charges" type="text" class="form-control"></div>
+                                        </div>    
+                                    </div>
+
+                                    <div class="form-row">
+                                        <div class="col-md-6">
+                                            <div class="position-relative form-group"><label for="exampleEmail11" class="">Bidding Fees</label><input name="bidding_fees" id="bidding_fees" placeholder="Bidding Fees" type="text" class="form-control"></div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="position-relative form-group"><label for="exampleEmail11" class="">Free Days</label><input name="free_days" id="free_days" placeholder="Free Days" type="text" class="form-control"></div>
+                                        </div>    
+                                    </div>
+
+                                    <div class="form-row">
+                                        <div class="col-md-12">
+                                            <div class="position-relative form-group"><label for="exampleZip" class="">Plan Type</label>
+                                                <select class="form-control" id="plan_type">
+                                                    <option value="Enquirer">Enquirer</option>
+                                                    <option value="Member">Member</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <input type="button" id="save_plan_button" class="btn btn-primary" value="Save">
+                                </form>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            {% else %}
+                <ul class="body-tabs body-tabs-layout tabs-animated body-tabs-animated nav">
+                    <li class="nav-item">
+                        <a role="tab" class="nav-link active" id="tab-0" data-toggle="tab" href="#tab-content-0">
+                        <span>EDIT PLAN</span>
+                        </a>
+                    </li>
+                </ul>
+                <div class="alert alert-danger" id="empty_fields" style="display: none;">
+                  <strong>Error!</strong>Please fill all the fields!
+                </div>
+                <div class="alert alert-danger" id="error_msg" style="display: none;">
+                  
+                </div>
+                <div class="alert alert-success" id="success_msg" style="display: none;">
+                  <strong>Success!</strong>Plan Updated Successfully!!
+                </div>
+                <div class="tab-content">
+                    <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
+                        <div class="main-card mb-3 card">
+                            <div class="card-body">
+                                <form class="">
+                                    <div class="form-row">
+                                        <div class="col-md-12">
+                                            <div class="position-relative form-group"><label for="exampleEmail11" class="">Plan Name</label><input name="plan_name" id="plan_name" placeholder="Plan Name" value="{{ plan.plan_name }}" type="text" class="form-control"></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="col-md-12">
+                                            <div class="position-relative form-group"><label for="exampleEmail11" class="">Description</label><input name="plan_description" id="plan_description" value="{{ plan.description }}" placeholder="Plan Description" type="text" class="form-control"></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="col-md-6">
+                                            <div class="position-relative form-group"><label for="exampleEmail11" class="">Monthly Price</label><input name="monthly_plan_price" id="monthly_plan_price" value="{{ plan.monthly_price }}" placeholder="Monthly Price" type="text" class="form-control"></div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="position-relative form-group"><label for="exampleEmail11" class="">Yearly Price</label><input name="yearly_plan_price" id="yearly_plan_price" value="{{ plan.yearly_price }}" placeholder="Yearly Price" type="text" class="form-control"></div>
+                                        </div>    
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="col-md-6">
+                                            <div class="position-relative form-group"><label for="exampleEmail11" class="">Monthly Payment</label><input name="monthly_plan_payment" id="monthly_plan_payment" value="{{ plan.monthly_payment }}" placeholder="Monthly Payment" type="text" class="form-control"></div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="position-relative form-group"><label for="exampleEmail11" class="">Yearly Payment</label><input name="yearly_plan_payment" id="yearly_plan_payment" value="{{ plan.yearly_payment }}" placeholder="Yearly Payment" type="text" class="form-control"></div>
+                                        </div>    
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="col-md-6">
+                                            <div class="position-relative form-group"><label for="exampleEmail11" class="">Reconnection Fees</label><input name="reconnection_fees" id="reconnection_fees" value="{{ plan.reconnection_fees }}" placeholder="Reconnection Fees" type="text" class="form-control"></div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="position-relative form-group"><label for="exampleEmail11" class="">Link Up Charges</label><input name="link_up_charges" id="link_up_charges" value="{{ plan.link_up_charge }}" placeholder="Link Up Charges" type="text" class="form-control"></div>
+                                        </div>    
+                                    </div>
+
+                                    <div class="form-row">
+                                        <div class="col-md-6">
+                                            <div class="position-relative form-group"><label for="exampleEmail11" class="">Bidding Fees</label><input name="bidding_fees" id="bidding_fees" placeholder="Bidding Fees" value="{{ plan.bidding_fees }}" type="text" class="form-control"></div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="position-relative form-group"><label for="exampleEmail11" class="">Free Days</label><input name="free_days" id="free_days" placeholder="Free Days" value="{{ plan.free_days }}" type="text" class="form-control"></div>
+                                        </div>    
+                                    </div>
+
+                                    <div class="form-row">
+                                        <div class="col-md-12">
+                                            <div class="position-relative form-group"><label for="exampleZip" class="">Plan Type</label>
+                                                <select class="form-control" id="plan_type">
+                                                    {% if plan.plan_type == 'Enquirer' %}
+                                                        <option value="Enquirer" selected>Enquirer</option>
+                                                    {% else %}
+                                                        <option value="Enquirer">Enquirer</option>
+                                                    {% endif %}
+                                                    {% if plan.plan_type == 'Member' %}
+                                                        <option value="Member" selected>Member</option>
+                                                    {% else %}
+                                                        <option value="Member">Member</option>
+                                                    {% endif %}
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <input type="button" id="edit_plan_button" class="btn btn-primary" data-id="{{ plan.id }}" value="Update">
+                                </form>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            {% endif %}
+    	</div>
+	</div>
+
+{% endblock %}
+{% block extra_js %}
+	<script type="text/javascript" src="/static/js/plan.js"></script>
+{% endblock %}

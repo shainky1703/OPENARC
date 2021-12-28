@@ -1,0 +1,141 @@
+openapi: 3.0.0
+info:
+  title: OPEN-ARC SUBSCRIPTIONS APIS
+  description: Open-Arc Project Rest API'S Subscriptions
+  version: 0.1.9
+servers:
+  - url: http://127.0.0.1:5003
+    description: Local server
+  - url: http://ec2-3-15-1-100.us-east-2.compute.amazonaws.com:5003
+    description: Droplet server
+components:
+  securitySchemes:
+    bearerAuth:            
+      type: http
+      scheme: bearer
+      bearerFormat: JWT  
+paths:
+  /getPlans/:
+    get:
+      security:
+        - bearerAuth: []
+      summary: Get All Subscription Plans For User
+      requestBody:
+        required: false
+      responses: 
+        '200':
+          description: ALL Plans For User
+  /getPaymentScreen/:
+    get:
+      security:
+        - bearerAuth: []
+      summary: Get Subscription Payment Details
+      requestBody:
+        required: false
+      responses: 
+        '200':
+          description: Subscription Payment Details
+  /getActivePlan/:
+    get:
+      security:
+        - bearerAuth: []
+      summary: Get User Active Plan  Details
+      requestBody:
+        required: false
+      responses: 
+        '200':
+          description: Subscription Details
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Server Error
+  /walletSubscription/:
+    post:
+      security:
+        - bearerAuth: []
+      summary: Pay For Subscription using wallet
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                plan_id:
+                  type: string
+                  description : plan_id from all plans api
+                biling_cycle:
+                  type: string
+                  description: monthly/yearly
+      responses: 
+        '200':
+          description: Subscription Activated
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Server Error
+  /cardSubscription/:
+    post:
+      security:
+        - bearerAuth: []
+      summary: Pay For Subscription using card
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                plan_id:
+                  type: string
+                  description : plan_id from all plans api
+                biling_cycle:
+                  type: string
+                  description: monthly/yearly
+                card_number:
+                  type: string
+                  description: 4242424242424242
+                exp_month:
+                  type: string
+                  description: 9
+                exp_year:
+                  type: string
+                  description: 29
+                cvv:
+                  type: string
+                  description: 123
+      responses: 
+        '200':
+          description: Subscription Activated
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Server Error
+  /cancelSubscription/:
+    post:
+      security:
+        - bearerAuth: []
+      summary: Cancel User Subscription Details By User Id
+      requestBody:
+        required: false
+      responses: 
+        '200':
+          description: Subscription Cancelled Successfully
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Server Error
+  
+  
+      
+
+
+

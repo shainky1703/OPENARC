@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>OPENARC</title>
+        <!-- Favicon -->
+        <link rel="icon" href="/static/favicons/fevicon-arcOpen.jpg" type="image/png" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,700,900|Roboto+Mono:300,400,500">
+        <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+        <!-- <link rel="stylesheet" href="/static/css/style.css">  -->
+        <style type="text/css">
+            body {
+                color: #000;
+                overflow-x: hidden;
+                height: 100%;
+                background-color: #4169e2;
+                background-repeat: no-repeat
+            }
+            .bcontainer {
+                height: 80vh;
+                padding: 10vh;
+            }
+
+            .card0 {
+                border-radius: 0px
+            }
+
+            .card2 {
+                margin: 0px 40px
+            }
+
+            .logo {
+                width: 330px;
+                margin: 0 auto;
+                height: auto;
+            }
+
+            .image {
+                width: 360px;
+                height: 280px
+            }
+
+            .border-line {
+                border-right: 1px solid #EEEEEE
+            }
+
+            .facebook {
+                background-color: #3b5998;
+                color: #fff;
+                font-size: 18px;
+                padding-top: 5px;
+                border-radius: 50%;
+                width: 35px;
+                height: 35px;
+                cursor: pointer
+            }
+
+            .twitter {
+                background-color: #1DA1F2;
+                color: #fff;
+                font-size: 18px;
+                padding-top: 5px;
+                border-radius: 50%;
+                width: 35px;
+                height: 35px;
+                cursor: pointer
+            }
+
+            .linkedin {
+                background-color: #2867B2;
+                color: #fff;
+                font-size: 18px;
+                padding-top: 5px;
+                border-radius: 50%;
+                width: 35px;
+                height: 35px;
+                cursor: pointer
+            }
+
+            .line {
+                height: 1px;
+                width: 37.5%;
+                background-color: #E0E0E0;
+                margin-top: 10px
+            }
+
+            .or {
+                width: 25%;
+                font-size:17px;
+                font-weight: bold
+            }
+
+            .text-sm {
+                font-size: 14px !important
+            }
+
+            ::placeholder {
+                color: #BDBDBD;
+                opacity: 1;
+                font-weight: 300
+            }
+
+            :-ms-input-placeholder {
+                color: #BDBDBD;
+                font-weight: 300
+            }
+
+            ::-ms-input-placeholder {
+                color: #BDBDBD;
+                font-weight: 300
+            }
+
+            input,
+            textarea {
+                padding: 10px 12px 10px 12px;
+                border: 1px solid lightgrey;
+                border-radius: 2px;
+                margin-bottom: 5px;
+                margin-top: 2px;
+                width: 100%;
+                box-sizing: border-box;
+                color: #2C3E50;
+                font-size: 14px;
+                letter-spacing: 1px
+            }
+
+            input:focus,
+            textarea:focus {
+                -moz-box-shadow: none !important;
+                -webkit-box-shadow: none !important;
+                box-shadow: none !important;
+                border: 1px solid #304FFE;
+                outline-width: 0
+            }
+
+            button:focus {
+                -moz-box-shadow: none !important;
+                -webkit-box-shadow: none !important;
+                box-shadow: none !important;
+                outline-width: 0
+            }
+
+            a {
+                color: inherit;
+                cursor: pointer
+            }
+
+            .btn-blue {
+                background-color: #6e78dd;
+                width: 150px;
+                color: #fff;
+                border-radius: 2px
+            }
+
+            /*.btn-blue:hover {
+                background-color: #000;
+                cursor: pointer
+            }*/
+
+            .bg-blue {
+                color: #fff;
+                background-color: #1A237E
+            }
+
+            @media screen and (max-width: 991px) {
+                .logo {
+                    margin-left: 0px
+                }
+
+                .image {
+                    width: 300px;
+                    height: 220px
+                }
+
+                .border-line {
+                    border-right: none
+                }
+
+                .card2 {
+                    border-top: 1px solid #EEEEEE !important;
+                    margin: 0px 15px
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container-fluid bcontainer">
+            <div class="card card0 border-0" style="background: transparent;">
+                <div class="row d-flex">
+                    <div class="col-lg-6" style="display: flex;justify-content: center;align-items: center;z-index: 0;">
+                        <div class="card1 pb-5">
+                            <div class="row"> <img src="/static/images/Enquirer/Arc-Open-Space-logo.png" class="logo"> </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="card2 card border-0 px-4 py-5">
+                            <div class="row mb-4 px-3">
+                            </div>
+                            <div class="col-lg-12 login-key">
+                                <i class="fa fa-key" aria-hidden="true"></i>
+                                {% for mesg in get_flashed_messages() %}
+                                  <h1>{{ mesg }}</h1>
+                                {% endfor %}
+                            </div>
+                            <div class="alert alert-danger" id="invalid_email" style="display: none;">
+                              <strong>Error!</strong>Invalid Email!
+                            </div>
+                            <div class="alert alert-danger" id="empty_fields" style="display: none;">
+                              <strong>Error!</strong>Please fill both the fields
+                            </div>
+                            <div class="alert alert-danger" id="error_msg" style="display: none;">
+                            </div>
+                            <div class="row px-3 mb-4">
+                                <div class="line"></div> <small class="or text-center">Admin Login</small>
+                                <div class="line"></div>
+                            </div>
+                            <div class="row px-3"> <label class="mb-1">
+                                    <h6 class="mb-0 text-sm">Email Address</h6>
+                                </label> <input class="mb-4" type="text" name="email" id="admin_email" placeholder="Enter a valid email address"> </div>
+                            <div class="row px-3"> <label class="mb-1">
+                                    <h6 class="mb-0 text-sm">Password</h6>
+                                </label> <input type="password" name="password" placeholder="Enter password" id="admin_password"> </div>
+                            <div class="row px-3 mb-4">
+                                <div class="custom-control custom-checkbox custom-control-inline"> <input id="chk1" type="checkbox" name="chk" class="custom-control-input"> <label for="chk1" class="custom-control-label text-sm">Remember me</label> </div> <a href="#" class="ml-auto mb-0 text-sm"></a>
+                            </div>
+                            <div class="row mb-3 px-3"> <input type="button" id="admin_login" class="btn btn-blue text-center" value="Login"> </div>
+                            <!-- <div class="row mb-4 px-3"> <small class="font-weight-bold">Don't have an account? <a class="text-danger ">Register</a></small> </div> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="py-4">
+            <div class="px-3"> 
+                <p class="text-center" style="color:white;">Copyright &copy; 2021. All rights reserved.</p>
+            </div>
+        </footer>
+    </body>
+    <script src="/static/js/jquery-3.3.1.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    <script src="/static/js/admin.js"></script>
+</html>

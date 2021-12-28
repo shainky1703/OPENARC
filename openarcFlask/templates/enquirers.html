@@ -1,0 +1,82 @@
+{% extends 'dashboard.html' %}
+{% block extra_css %}
+	<link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet">
+{% endblock %}
+{% block content %}
+    <div class="app-main__outer">
+        <div class="app-main__inner">
+        	<div class="row">
+                <div class="col-md-6 col-xl-4">
+                    <div class="card mb-3 widget-content bg-midnight-bloom">
+                        <div class="widget-content-wrapper text-white">
+                            <div class="widget-content-left">
+                                <div class="widget-heading">ENQUIRERS</div>
+                                <div class="widget-subheading">Registered Enquirers </div>
+                            </div>
+                            <div class="widget-content-right">
+                                <div class="widget-numbers text-white"><span>{{ users|length }}</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>           
+			<div class="table-responsive" style="height:450px;">
+                <table class="align-middle mb-0 table table-borderless table-striped table-hover">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+		                <th>COMPANY NAME</th>
+		                <th>EMAIL</th>
+		                <th>DEVICE TYPE</th>
+		                <th>PHONE</th>
+		                <th>VERIFIED</th>
+		                <th>CITY</th>
+		                <th>DATE REGISTERED</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for user in users %}
+                    <tr>
+                        <td class="text-center text-muted">{{ user.id }}</td>
+                        <td class="text-center">
+                            <div class="badge badge-warning">{{ user.company_name }}</div>
+                        </td>
+                        <td>
+                            <div class="widget-content p-0">
+                                <div class="widget-content-wrapper">
+                                    <div class="widget-content-left flex2">
+                                        <div class="widget-heading">{{ user.email }}</div>
+                                        <div class="widget-subheading opacity-7">{{ user.user_type }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="text-center">
+                            <div class="badge badge-warning">{{ user.device_type }}</div>
+                        </td>
+                        <td class="text-center">
+                            <div class="badge badge-warning">{{ user.phone }}</div>
+                        </td>
+                        <td class="text-center">
+                            <div class="badge badge-warning">{{ user.verified }}</div>
+                        </td>
+                        <td class="text-center">
+                            <div class="badge badge-warning">{{ user.city }}</div>
+                        </td>
+                        <td class="text-center">{{ user.registered_date }}</td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+    	</div>
+	</div>
+
+{% endblock %}
+{% block extra_js %}
+	<script>
+		$(document).ready(function() {
+    		$('#members_table').DataTable();
+		});
+	</script>
+{% endblock %}

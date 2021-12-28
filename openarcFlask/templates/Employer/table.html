@@ -1,0 +1,56 @@
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700"/>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+<script>
+$(document).ready(function() {
+    $('#example').DataTable( {
+        "pagingType": "full_numbers"
+    } );
+} );
+</script>
+<style>
+    table {
+        font-family: 'Open Sans';
+    }
+    
+                table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  text-align: left;
+  padding: 5px;
+}
+    
+</style>
+
+<table id="example" class="display" width="100%" cellspacing="0">
+        <thead>
+            <tr>
+                <th>Medium</th>
+                <th>Reference</th>
+                <th>job</th>
+                <th>amount</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th>Medium</th>
+                <th>Reference</th>
+                <th>job</th>
+                <th>amount</th>
+            </tr>
+        </tfoot>
+        <tbody>
+            {% for payment in payments_list %}
+                <tr>
+                    <td>{{ payment.medium }}</td>
+                    <td>{{ payment.reference }}</td>
+                    <td>{{ payment.job }}</td>
+                    <td>{{ payment.amount }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>

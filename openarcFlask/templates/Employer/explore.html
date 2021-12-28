@@ -1,0 +1,504 @@
+{% extends 'Employer/base.html' %}
+{% block header %}
+  <div class="header pb-6">
+      <div class="container-fluid">
+          <div class="header-body">
+              <div class="row align-items-center py-4">
+                  <div class="col-lg-6 col-4">
+                    <div class="alert alert-warning" role="alert" id="no_filter" style="display: none;">
+                      Please select atleast one filter!!
+                    </div>
+                    <h6 class="h2 d-inline-block mb-0">Explore</h6>
+                  </div>
+                  <div class="col-lg-6 col-8 text-right">
+                      <li class="dropdown">
+                          <a href="#" class="btn btn-sm btn-neutral" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Location</a>
+                          <div class="dropdown-menu dropdown-menu-lg bg-secondary dropdown-menu-right" style="">
+                              <label class="mx-3">Location</label>
+                              <div class="row">
+                                  <div class="col-auto mx-3">
+                                      <div class="form-check">
+                                          <input class="form-check-input city_check" type="checkbox" value="London (Greater London)" id="defaultCheck1" name="type"/> <label class="form-check-label text-sm" for="defaultCheck1"> London (Greater London) </label>
+                                      </div>
+                                      <div class="form-check">
+                                          <input class="form-check-input city_check" type="checkbox" value="Reading (South East)" id="defaultCheck1" name="type"/> <label class="form-check-label text-sm" for="defaultCheck1"> Reading (South East) </label>
+                                      </div>
+                                      <div class="form-check">
+                                          <input class="form-check-input city_check" type="checkbox" value="Oxford &amp; Cammbridge (South East)" id="defaultCheck1" name="type"/> <label class="form-check-label text-sm" for="defaultCheck1"> Oxford &amp; Cammbridge (South East) </label>
+                                      </div>
+                                      <div class="form-check">
+                                          <input class="form-check-input city_check" type="checkbox" value="Canterbury (South East) " id="defaultCheck1" name="type"/> <label class="form-check-label text-sm" for="defaultCheck1"> Canterbury (South East) </label>
+                                      </div>
+                                      <div class="form-check">
+                                          <input class="form-check-input city_check" type="checkbox" value="Southampton (South East)" id="defaultCheck1" name="type"/> <label class="form-check-label text-sm" for="defaultCheck1"> Southampton (South East) </label>
+                                      </div>
+                                      <div class="form-check">
+                                          <input class="form-check-input city_check" type="checkbox" value="Dover &amp; Folkeston (South East)" id="defaultCheck1" name="type"/> <label class="form-check-label text-sm" for="defaultCheck1"> Dover &amp; Folkeston (South East) </label>
+                                      </div>
+                                      <div class="form-check">
+                                          <input class="form-check-input city_check" type="checkbox" value="Brighton (South East)" id="defaultCheck1" name="type"/> <label class="form-check-label text-sm" for="defaultCheck1"> Brighton (South East) </label>
+                                      </div>
+                                      <div class="form-check">
+                                          <input class="form-check-input city_check" type="checkbox" value="Norwich (East England)" id="defaultCheck1" name="type"/> <label class="form-check-label text-sm" for="defaultCheck1"> Norwich (East England) </label>
+                                      </div>
+                                      <div class="form-check">
+                                          <input class="form-check-input city_check" type="checkbox" value="Bedford (East England)" id="defaultCheck1" name="type"/> <label class="form-check-label text-sm" for="defaultCheck1"> Bedford (East England) </label>
+                                      </div>
+                                      <div class="form-check">
+                                          <input class="form-check-input city_check" type="checkbox" value="Peterborough (East England)" id="defaultCheck1" name="type"/> <label class="form-check-label text-sm" for="defaultCheck1"> Peterborough (East England) </label>
+                                      </div>
+                                      <div class="form-check">
+                                          <input class="form-check-input city_check" type="checkbox" value="Luton (East England)" id="defaultCheck1" name="type"/> <label class="form-check-label text-sm" for="defaultCheck1"> Luton (East England) </label>
+                                      </div>
+                                      <div class="form-check">
+                                          <input class="form-check-input city_check" type="checkbox" value="Glasgow (Scotland)" id="defaultCheck1" name="type"/> <label class="form-check-label text-sm" for="defaultCheck1"> Glasgow (Scotland) </label>
+                                      </div>
+                                      <div class="form-check">
+                                          <input class="form-check-input city_check" type="checkbox" value="Edinburgh (Scotland)" id="defaultCheck1" name="type"/> <label class="form-check-label text-sm" for="defaultCheck1"> Edinburgh (Scotland) </label>
+                                      </div>
+                                      <div class="form-check">
+                                          <input class="form-check-input city_check" type="checkbox" value="Aberdeen (Scotland)" id="defaultCheck1" name="type"/> <label class="form-check-label text-sm" for="defaultCheck1"> Aberdeen (Scotland) </label>
+                                      </div>
+                                      <div class="form-check">
+                                          <input class="form-check-input city_check" type="checkbox" value="Belfast (Northern Ireland )" id="defaultCheck1" name="type"/> <label class="form-check-label text-sm" for="defaultCheck1"> Belfast (Northern Ireland ) </label>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </li>
+                      <li class="dropdown">
+                          <a href="#" class="btn btn-sm btn-neutral" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Rating</a>
+                          <div class="dropdown-menu dropdown-menu-md bg-secondary dropdown-menu-right" style="">
+                              <label class="mx-3">Rating</label>
+                              <div class="row">
+                                  <div class="col-auto mx-3">
+                                      <div class="form-check">
+                                          <input class="form-check-input rating_checkbox" type="checkbox" value="1" id="defaultCheck1" onclick="check(this);"/>
+                                          <label class="form-check-label text-sm" for="defaultCheck1">
+                                              <span class="fa fa-star checked"></span> <span class="fa fa-star"></span> <span class="fa fa-star"></span> <span class="fa fa-star"></span> <span class="fa fa-star"></span>
+                                          </label>
+                                      </div>
+                                      <div class="form-check">
+                                          <input class="form-check-input rating_checkbox" type="checkbox" value="2" id="defaultCheck1" onclick="check(this);"/>
+                                          <label class="form-check-label text-sm" for="defaultCheck1">
+                                              <span class="fa fa-star checked"></span> <span class="fa fa-star checked"></span> <span class="fa fa-star"></span> <span class="fa fa-star"></span> <span class="fa fa-star"></span>
+                                          </label>
+                                      </div>
+                                      <div class="form-check">
+                                          <input class="form-check-input rating_checkbox" type="checkbox" value="3" id="defaultCheck1" onclick="check(this);"/>
+                                          <label class="form-check-label text-sm" for="defaultCheck1">
+                                              <span class="fa fa-star checked"></span> <span class="fa fa-star checked"></span> <span class="fa fa-star checked"></span> <span class="fa fa-star"></span>
+                                              <span class="fa fa-star"></span>
+                                          </label>
+                                      </div>
+                                      <div class="form-check">
+                                          <input class="form-check-input rating_checkbox" type="checkbox" value="4" id="defaultCheck1" onclick="check(this);"/>
+                                          <label class="form-check-label text-sm" for="defaultCheck1">
+                                              <span class="fa fa-star checked"></span> <span class="fa fa-star checked"></span> <span class="fa fa-star checked"></span> <span class="fa fa-star checked"></span>
+                                              <span class="fa fa-star"></span>
+                                          </label>
+                                      </div>
+                                      <div class="form-check">
+                                          <input class="form-check-input rating_checkbox" type="checkbox" value="5" id="defaultCheck1" onclick="check(this);"/>
+                                          <label class="form-check-label text-sm" for="defaultCheck1">
+                                              <span class="fa fa-star checked"></span> <span class="fa fa-star checked"></span> <span class="fa fa-star checked"></span> <span class="fa fa-star checked"></span>
+                                              <span class="fa fa-star checked"></span>
+                                          </label>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </li>
+                      <li class="dropdown">
+                          <a href="#" class="btn btn-sm btn-neutral" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Price</a>
+                          <div class="dropdown-menu dropdown-menu-md bg-secondary dropdown-menu-right" style="">
+                              <label class="mx-3">Hourly Rate</label>
+                              <div class="row">
+                                  <div class="col-auto mx-3">
+                                      <div class="form-check"><input class="form-check-input price_checkbox" type="checkbox" value="Less than £10" id="defaultCheck1" onclick="check_price(this);"/> <label class="form-check-label text-sm" for="defaultCheck1"> Less than £10 </label></div>
+                                      <div class="form-check"><input class="form-check-input price_checkbox" type="checkbox" value="£10 - £20" id="defaultCheck1" onclick="check_price(this);"/> <label class="form-check-label text-sm" for="defaultCheck1"> £10 - £20 </label></div>
+                                      <div class="form-check"><input class="form-check-input price_checkbox" type="checkbox" value="£20 - £30" id="defaultCheck1" onclick="check_price(this);"/> <label class="form-check-label text-sm" for="defaultCheck1"> £20 - £30 </label></div>
+                                      <div class="form-check"><input class="form-check-input price_checkbox" type="checkbox" value="More than £30" id="defaultCheck1" onclick="check_price(this);"/> <label class="form-check-label text-sm" for="defaultCheck1"> More than £30 </label></div>
+                                  </div>
+                              </div>
+                          </div>
+                      </li>
+                      <button type='button' class="btn btn-primary search_button">Submit</button>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+{% endblock %}
+{% block content %}
+      <div class="container-fluid mt--6 main_div">
+          <div class="row">
+              <div class="col-md-12 mb-5">
+                  <div class="pt-5">
+                      <div class="row">
+                          <div class="col-md-12">
+                              <label>Top Rated</label>
+                              <div class="container text-center my-3">
+                                  <div class="col-md-12">
+                                      <div id="recipeCarousel" class="carousel slide" data-ride="carousel">
+                                          <div class="carousel-inner" role="listbox">
+                                              {% for member in high_rated %}
+                                                <div class="carousel-item {% if loop.index == 1 %} active {% endif %}">
+                                                    <div class="col-lg-3 col-md-12 explore">
+                                                        <div class="card">
+                                                            <div class="card-body">
+                                                                <div class="head">
+                                                                  {% if member.profile_pic %}
+                                                                    <img src="{{ member.profile_pic }}" alt="" />
+                                                                  {% else %}
+                                                                    <img src="/static/images/dummy_user.png" alt="" />
+                                                                  {% endif %}
+                                                                    <h3>{{ member.member_name }}</h3>
+                                                                    <div class="ratings">
+                                                                        {% if member.rating == 5 %}
+                                                                          <span class="fa fa-star checked"></span> 
+                                                                          <span class="fa fa-star checked"></span> 
+                                                                          <span class="fa fa-star checked"></span> 
+                                                                          <span class="fa fa-star checked"></span>
+                                                                          <span class="fa fa-star checked"></span>
+                                                                        {% elif member.rating == 4 %}
+                                                                          <span class="fa fa-star checked"></span> 
+                                                                          <span class="fa fa-star checked"></span> 
+                                                                          <span class="fa fa-star checked"></span> 
+                                                                          <span class="fa fa-star checked"></span>
+                                                                          <span class="fa fa-star"></span>
+                                                                        {% elif member.rating == 3 %}
+                                                                          <span class="fa fa-star checked"></span> 
+                                                                          <span class="fa fa-star checked"></span> 
+                                                                          <span class="fa fa-star checked"></span> 
+                                                                          <span class="fa fa-star"></span>
+                                                                          <span class="fa fa-star"></span>
+                                                                        {% elif member.rating == 2 %}
+                                                                          <span class="fa fa-star checked"></span> 
+                                                                          <span class="fa fa-star checked"></span> 
+                                                                          <span class="fa fa-star"></span> 
+                                                                          <span class="fa fa-star"></span>
+                                                                          <span class="fa fa-star"></span>
+                                                                        {% elif member.rating == 1 %}
+                                                                          <span class="fa fa-star checked"></span> 
+                                                                          <span class="fa fa-star"></span> 
+                                                                          <span class="fa fa-star"></span> 
+                                                                          <span class="fa fa-star"></span>
+                                                                          <span class="fa fa-star"></span>
+                                                                        {% else %}
+                                                                          <span class="fa fa-star"></span> 
+                                                                          <span class="fa fa-star"></span> 
+                                                                          <span class="fa fa-star"></span> 
+                                                                          <span class="fa fa-star"></span>
+                                                                          <span class="fa fa-star"></span>
+                                                                        {% endif %}
+                                                                    </div>
+                                                                </div>
+                                                                <label><i class="fa fa-map-marker"></i> {{ member.city }}</label>
+                                                                <a href="#" data-id="{{ member.member_id }}" class="btn btn-site px-4 float-right viewprofile" name="View Profile">View Profile</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                              {% endfor %}
+                                          </div>
+                                          <a class="carousel-control-prev w-auto" href="#recipeCarousel" role="button" data-slide="prev">
+                                              <span class="carousel-control-prev-icon" aria-hidden="true"></span> <span class="sr-only">Previous</span>
+                                          </a>
+                                          <a class="carousel-control-next w-auto" href="#recipeCarousel" role="button" data-slide="next">
+                                              <span class="carousel-control-next-icon" aria-hidden="true"></span> <span class="sr-only">Next</span>
+                                          </a>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="mb-5">
+                                  <label>All Members</label>
+                                  <div class="table">
+                                      <div class="exploremembers row">
+                                          {% for member in all_members %}
+                                            <div class="col-md-4">
+                                                <div class="solid">
+                                                    <div class="left">
+                                                        <a href="#" class="member_profile" data-id="{{ member.member_id }}">
+                                                          {% if member.profile_pic %}
+                                                            <img src="{{ member.profile_pic }}" class="img-circle user-img-circle" alt="User" /> 
+                                                          {% else %}
+                                                            <img src="/static/images/dummy_user.png" class="img-circle user-img-circle" alt="User" /> 
+                                                          {% endif %}
+                                                            <strong>{{ member.member_name }}</strong>
+                                                            <div class="ratings">
+                                                              {% if member.rating == 5 %}
+                                                                <span class="fa fa-star checked"></span> 
+                                                                <span class="fa fa-star checked"></span> 
+                                                                <span class="fa fa-star checked"></span> 
+                                                                <span class="fa fa-star checked"></span>
+                                                                <span class="fa fa-star checked"></span>
+                                                              {% elif member.rating == 4 %}
+                                                                <span class="fa fa-star checked"></span> 
+                                                                <span class="fa fa-star checked"></span> 
+                                                                <span class="fa fa-star checked"></span> 
+                                                                <span class="fa fa-star checked"></span>
+                                                                <span class="fa fa-star"></span>
+                                                              {% elif member.rating == 3 %}
+                                                                <span class="fa fa-star checked"></span> 
+                                                                <span class="fa fa-star checked"></span> 
+                                                                <span class="fa fa-star checked"></span> 
+                                                                <span class="fa fa-star"></span>
+                                                                <span class="fa fa-star"></span>
+                                                              {% elif member.rating == 2 %}
+                                                                <span class="fa fa-star checked"></span> 
+                                                                <span class="fa fa-star checked"></span> 
+                                                                <span class="fa fa-star"></span> 
+                                                                <span class="fa fa-star"></span>
+                                                                <span class="fa fa-star"></span>
+                                                              {% elif member.rating == 1 %}
+                                                                <span class="fa fa-star checked"></span> 
+                                                                <span class="fa fa-star"></span> 
+                                                                <span class="fa fa-star"></span> 
+                                                                <span class="fa fa-star"></span>
+                                                                <span class="fa fa-star"></span>
+                                                              {% else %}
+                                                                <span class="fa fa-star"></span> 
+                                                                <span class="fa fa-star"></span> 
+                                                                <span class="fa fa-star"></span> 
+                                                                <span class="fa fa-star"></span>
+                                                                <span class="fa fa-star"></span>
+                                                              {% endif %}
+                                                            </div>
+                                                        </a>
+                                                    </div>
+                                                    <div class="right">
+                                                        <p><span class="price">{{ member.per_hour_rate }}</span>/hr</p>
+                                                        {% if member.saved == False %}
+                                                          <a href="/saveMember/{{ member.member_id}}/"><i class="ni ni-favourite-28"></i></a>
+                                                        {% else %}
+                                                          <i class="ni ni-favourite-28" style="color:blue;"></i>
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                          {% endfor %}
+                              
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+            <div class="modal fade modal1" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal- modal-dialog-centered modal-" id="test" role="document">
+                    <div class="modal-content">
+                        <div class="modal-body row py-2">
+                            <div class="col-md-12 p-0">
+                                <div class="card card-profile shadow mb-0">
+                                    <div class="row justify-content-center">
+                                        <div class="col-lg-3 order-lg-2">
+                                            <div class="card-profile-image">
+                                                <a href="#"> <img src="images/theme-team-4.jpg" class="rounded-circle" /> </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-header text-center border-0 pt-md-4 pb-md-4">
+                                        <div class="d-flex"><button type="button" class="btn btn-link p-0 ml-auto" data-dismiss="modal">Close</button></div>
+                                    </div>
+                                    <div class="card-body pt-0">
+                                        <div class="row">
+                                            <div class="col">
+                                                <div class="card-profile-stats d-flex justify-content-center">
+                                                    <div><span class="heading">22</span> <span class="description">Jobs Done</span></div>
+                                                    <div>
+                                                        <span class="heading">
+                                                            <span class="fa fa-star checked"></span> <span class="fa fa-star checked"></span> <span class="fa fa-star checked"></span> <span class="fa fa-star checked"></span>
+                                                            <span class="fa fa-star"></span>
+                                                        </span>
+                                                        <span class="description">Rating</span>
+                                                    </div>
+                                                    <div><span class="heading text-lowercase">€12/hr </span> <span class="description">Price</span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="text-center">
+                                            <h5 class="h3">Jessica Jones</h5>
+                                            <div class="h4 font-weight-300">Bucharest, Romania</div>
+                                            <div class="h4 badge bg-success text-white mb-0">Badge No. - 254516</div>
+                                            <div class="h5 mt-4 font-weight-600">
+                                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley
+                                                of type and scrambled it to make a type specimen book.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer bg-secondary">
+                            <a class="btn btn-sm btn-primary" href="#">Download Resume</a> <a href="/chats/" class="btn btn-sm btn-success">Contact</a><a href="#" class="ml-auto"><i class="ni ni-favourite-28"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+
+{% endblock %}
+{% block extra_js %}
+    <script>
+            $('#recipeCarousel').carousel({
+              interval: 10000
+            })
+
+            // $('.carousel .carousel-item').each(function(){
+            //   var next = $(this).next();
+            //   if (!next.length) {
+            //     next = $(this).siblings(':first');
+            //   }
+            //   next.children(':first-child').clone().appendTo($(this));
+              
+            //   if (next.next().length>0) {
+            //     next.next().children(':first-child').clone().appendTo($(this));
+            //   }
+            //   else {
+            //     $(this).siblings(':first').children(':first-child').clone().appendTo($(this));
+            //   }
+            // });
+
+            $('.carousel .carousel-item').each(function(){
+                var minPerSlide = 2;
+                var next = $(this).next();
+                if (!next.length) {
+                next = $(this).siblings(':first');
+                }
+                next.children(':first-child').clone().appendTo($(this));
+
+                for (var i=0;i<minPerSlide;i++) {
+                    next=next.next();
+                    if (!next.length) {
+                      next = $(this).siblings(':first');
+                    }
+
+                    next.children(':first-child').clone().appendTo($(this));
+                  }
+            });
+
+
+            $('.member_profile').click(function(){
+                var member_id  = $(this).attr('data-id')
+                data = {
+                  "member_id" : member_id,
+                }
+                $.ajax({  
+                    type: "POST",
+                    url: '/getMemberProfile/',
+                    data: data,
+                    success:function(response){
+                        console.log('html',response)
+                        $('#test').html(response.html)
+                        $('.modal1').modal('show');
+                   }
+                }) 
+            })
+
+            $('.viewprofile').click(function(){
+                var member_id  = $(this).attr('data-id')
+                data = {
+                  "member_id" : member_id,
+                }
+                $.ajax({  
+                    type: "POST",
+                    url: '/getMemberProfile/',
+                    data: data,
+                    success:function(response){
+                        console.log('html',response)
+                        $('#test').html(response.html)
+                        $('.modal1').modal('show');
+                   }
+                }) 
+            })
+
+
+            function check(input)
+              {
+                
+                var checkboxes = document.getElementsByClassName("rating_checkbox");
+                
+                for(var i = 0; i < checkboxes.length; i++)
+                {
+                  //uncheck all
+                  if(checkboxes[i].checked == true)
+                  {
+                    checkboxes[i].checked = false;
+                  }
+                }
+                
+                //set checked of clicked object
+                if(input.checked == true)
+                {
+                  input.checked = false;
+                }
+                else
+                {
+                  input.checked = true;
+                } 
+            }
+
+
+            function check_price(input)
+              {
+                
+                var checkboxes = document.getElementsByClassName("price_checkbox");
+                
+                for(var i = 0; i < checkboxes.length; i++)
+                {
+                  //uncheck all
+                  if(checkboxes[i].checked == true)
+                  {
+                    checkboxes[i].checked = false;
+                  }
+                }
+                
+                //set checked of clicked object
+                if(input.checked == true)
+                {
+                  input.checked = false;
+                }
+                else
+                {
+                  input.checked = true;
+                } 
+            }
+
+            //Search
+            $('.search_button').click(function(){
+              var city_array = []
+              $("input:checkbox[name=type]:checked").each(function(){
+                city_array.push($(this).val());
+              });
+              var rating = $('.rating_checkbox:checked').val();
+              var price = $('.price_checkbox:checked').val();
+              console.log('>>>>>>>>>>>>>',city_array.length,rating,price)
+              if ((rating == undefined) && (price == undefined) && (city_array.length == 0)){
+                  $('#no_filter').show();
+                  $('#no_filter').delay(5000).fadeOut('slow');
+                  return false;
+              }
+              var data = {
+                'city_array[]' : city_array,
+                'rating' : rating,
+                'price' : price,
+               }
+               $.ajax({  
+                    type: "POST",
+                    url: '/getFilteredData/',
+                    data: data,
+                    success:function(response){
+                        console.log('html',response)
+                        $(".main_div").html(response.html); 
+                   }
+                }) 
+            })
+            </script>
+
+{% endblock %}

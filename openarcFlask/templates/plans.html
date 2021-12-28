@@ -1,0 +1,66 @@
+{% extends 'dashboard.html' %}
+{% block extra_css %}
+	<link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet">
+{% endblock %}
+{% block content %}
+    <div class="app-main__outer">
+        <div class="app-main__inner"> 
+        	<div class="row">
+                <div class="col-md-6 col-xl-4">
+                    <div class="card mb-3 widget-content bg-midnight-bloom">
+                        <div class="widget-content-wrapper text-white">
+                            <div class="widget-content-left">
+                                <div class="widget-heading">PLANS</div>
+                                <div class="widget-subheading">Registered Plans </div>
+                            </div>
+                            <div class="widget-content-right">
+                                <div class="widget-numbers text-white"><span>{{ plans|length }}</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="alert alert-danger" id="error_msg" style="display: none;">
+            </div>
+            <div class="alert alert-danger" id="success_msg" style="display: none;">
+              <strong>Success!</strong>Deleted Succesfully
+            </div>            
+			<div class="table-responsive">
+                <table class="align-middle mb-0 table table-borderless table-striped table-hover">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+		                <th>NAME</th>
+		                <th>DESCRIPTION</th>
+		                <th>MONTHLY PRICE</th>
+		                <th>YEARLY PRICE</th>
+                        <th>ACTIONS</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for plan in plans %}
+                    <tr>
+                        <td class="text-center text-muted">{{ plan.id }}</td>
+                        <td class="text-center text-muted">{{ plan.plan_name }}</td>
+                        <td class="text-center text-muted">{{ plan.description }}</td>
+                        <td class="text-center text-muted">{{ plan.monthly_price }}</td>
+                        <td class="text-center">
+                            <div class="badge badge-warning">{{ plan.yearly_price }}</div>
+                        </td>
+                        <td>
+                            <a href="/updatePlan/{{plan.id}}""><button class="btn btn-primary">Edit</button>
+                        </a>
+                            <button class="btn btn-danger delete_plan" data-id="{{ plan.id }}">Delete</button>
+                        </td>     
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+    	</div>
+	</div>
+
+{% endblock %}
+{% block extra_js %}
+	<script type="text/javascript" src="/static/js/plan.js"></script>
+{% endblock %}

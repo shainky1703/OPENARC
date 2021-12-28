@@ -1,0 +1,75 @@
+{% extends 'Employer/base.html' %}
+{% block header %}
+    <div class="header pb-6">
+            <div class="container-fluid">
+                <div class="header-body">
+                    {% with messages = get_flashed_messages() %}
+                      {% if messages %}
+                        <ul class=flashes>
+                        {% for message in messages %}
+                          <li>{{ message }}</li>
+                        {% endfor %}
+                        </ul>
+                      {% endif %}
+                    {% endwith %}
+                    <div class="row align-items-center py-4">
+                        <div class="col-lg-6 col-7">
+                            <h6 class="h2 d-inline-block mb-3">Subscription</h6> <br /> <span><b>Current Plan:</b> {{current_plan}}</span><br /> <span><b>Expiry:</b> {{expiry_date}}</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+{% endblock %}
+{% block content %}
+    <div class="container-fluid mt--6 mb-6">
+            <div class="text-center mb-3">
+                <h3>Charge on link up</h3>
+                <p class="text-muted mb-3">Gold enquirer has a little charge like 27p on linkups</p>
+            </div>
+            <div class="row">
+                {% for plan in employer_plans %}
+                    <div class="col-lg-4">
+                        <div class="box">
+                            {% if plan.name == current_plan %}
+                                <div class="box-body text-center bg-secondary border border-primary my-4" style="background: lightgrey !important">
+                            {% else %}
+                                <div class="box-body text-center bg-secondary border border-primary my-4">
+                            {% endif %}
+                                {% if plan.name == 'Free' %}
+                                    <h3 class="price">FREE<span>&nbsp;</span></h3>
+                                {% else %}
+                                    <h3 class="price"> <sup>£</sup>{{ plan.monthly_price }}<sup>.00</sup> <span>+vat/per month</span></h3>
+                                {% endif %}
+                                <h5 class="text-uppercase text-muted bg-primary text-white text-lg mx-n4 mb-4 py-2">{{ plan.name }}</h5>
+                                {% if plan.name == 'Free' %}
+                                    <p><strong>{{ plan.free_days }} days </strong>Free Trial</p>
+                                {% else %}
+                                    <p><strong>No</strong> Free Trial</p>
+                                {% endif %}
+                                {% if plan.name == 'Free' %}
+                                    <p><strong>Free</strong> Plan</p>
+                                {% else %}
+                                    <p><strong>{{ plan.yearly_price }}</strong> Yearly Price</p>
+                                {% endif %}
+                                {% if plan.name == 'Free' %}
+                                    <p><strong>Free</strong> Plan</p>
+                                {% else %}
+                                    <p><strong>{{ plan.discount }}</strong> Discount </p>
+                                {% endif %}
+                                <p><strong>{{ plan.description }}</strong></p> <br /> 
+                                {% if plan.name == 'Free' %}
+                                    <a class="btn btn-warning" href="#">Free Plan</a>
+                                {% else %}
+                                    <a class="btn btn-warning" href="/subscriptionBilling/{{ plan.plan_id }}/">Select plan</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                
+            </div>
+        </div>
+{% endblock %}
+{% block extra_js %}
+    
+{% endblock %}

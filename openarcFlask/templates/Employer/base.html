@@ -1,0 +1,487 @@
+{% block head %}
+  <head>
+    {% block meta %}
+      <meta charset="utf-8" />
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, shrink-to-fit=no"
+      />
+      <meta name="description" content="Security Agents/Company Linking App" />
+      <meta name="author" content="" />
+      {% block title %}
+        <title>Arc Open Space</title>
+      {% endblock %}
+      <!-- Canonical SEO -->
+      <link rel="canonical" href="#" />
+      <!--  Social tags      -->
+      <meta name="keywords" content="" />
+      <meta name="description" content="Security Agents/Company Linking App" />
+      <!-- Schema.org markup for Google+ -->
+      <meta itemprop="name" content="Arc Open Space" />
+      <meta
+        itemprop="description"
+        content="Security Agents/Company Linking App"
+      />
+      <meta itemprop="image" content="" />
+      <!-- Twitter Card data -->
+      <meta name="twitter:card" content="product" />
+      <meta name="twitter:site" content="@..." />
+      <meta
+        name="twitter:title"
+        content="Arc Open Space - Security Agents/Company Linking App"
+      />
+      <meta
+        name="twitter:description"
+        content="Security Agents/Company Linking App"
+      />
+      <meta name="twitter:creator" content="@..." />
+      <meta name="twitter:image" content="" />
+    {% endblock %}
+    {% block css %}
+      <!-- Favicon -->
+      <link rel="icon" href="/static/favicons/fevicon-arcOpen.jpg" type="image/png" />
+      <!-- Fonts -->
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700"
+      />
+      <!-- Icons -->
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/Enquirer/css-nucleo.css') }}" type="text/css" />
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/Enquirer/css-all.min.css') }}" type="text/css" />
+      <!-- Argon CSS -->
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/Enquirer/css-argon.min.css') }}" type="text/css" />
+      <!-- Custom CSS -->
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/Enquirer/custom.css') }}" type="text/css" />
+    {% endblock %}
+    {% block extra_css %}{% endblock %}
+  </head>
+{% endblock %}
+  <body class="bg-white">
+    {% block sidebar %}
+      <!-- Sidenav -->
+      <nav
+        class="sidenav navbar navbar-vertical fixed-left navbar-expand-xs navbar-dark bg-theme"
+        id="sidenav-main"
+      >
+        <div class="scrollbar-inner">
+          <!-- Brand -->
+          <div class="sidenav-header d-flex align-items-center">
+            <a class="navbar-brand text-white" href="/dashboard/">
+              <img src="/static/images/Enquirer/Arc-Open-Space-logo.png" class="navbar-brand-img" alt="Arc Open Space">
+              <!-- <h3 class="mb-0 text-white"><span style="color:red;">Arc</span> Open Space</h3> -->
+              </a>
+            <div class="ml-auto">
+              <!-- Sidenav toggler -->
+              <div
+                class="sidenav-toggler d-none d-xl-block"
+                data-action="sidenav-unpin"
+                data-target="#sidenav-main"
+              >
+                <div class="sidenav-toggler-inner liner-white">
+                  <i class="sidenav-toggler-line"></i>
+                  <i class="sidenav-toggler-line"></i>
+                  <i class="sidenav-toggler-line"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="navbar-inner">
+            <!-- Collapse -->
+            <div class="collapse navbar-collapse" id="sidenav-collapse-main">
+              <!-- Nav items -->
+              <ul class="navbar-nav">
+                <li class="nav-item">
+                  {% if request.path == '/dashboard/' %}
+                    <a class="nav-link active" href="/dashboard/">
+                  {% else %}
+                    <a class="nav-link" href="/dashboard/">
+                  {% endif %}
+    				          <i class="fas fa-home text-white"></i>
+                      <span class="nav-link-text">Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                  {% if request.path == '/explore/' %}
+                    <a class="nav-link active" href="/explore/">
+                  {% else %}
+                    <a class="nav-link" href="/explore/">
+                  {% endif %}
+                      <i class="fas fa-search text-white"></i>
+                      <span class="nav-link-text">Explore</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                  {% if 'jobType' in request.path or 'jobInvites' in request.path or 'jobs' in request.path %}
+                    <a class="nav-link active" data-toggle="collapse"	href="#joblistings">
+                  {% else %}
+                    <a class="nav-link" data-toggle="collapse"  href="#joblistings">
+                  {% endif %}
+                    <i class="fa fa-list text-white" aria-hidden="true"></i>
+                    <span class="nav-link-text">Job Listings</span>
+                  </a>
+                  <div class="collapse" id="joblistings">
+                  <ul class="sub-menu nav nav-sm flex-column">
+                    <li class="nav-item">
+                        {% if request.path == '/jobType/' %}
+                          <a class="nav-link active" href="/jobType/">
+                        {% else %}
+                          <a class="nav-link" href="/jobType/">
+                        {% endif %}
+                            <span class="nav-link-text">Add Job</span>
+                          </a>
+                        {% if request.path == '/jobInvites/' %}
+                          <a class="nav-link active" href="/jobInvites/">
+                        {% else %}
+                          <a class="nav-link" href="/jobInvites/">
+                        {% endif %}
+                            <span class="nav-link-text">Invite Guards</span>
+                          </a>
+                    </li>
+                    <li class="nav-item">
+                      {% if request.path == '/jobs/' %}
+                        <a class="nav-link active" href="/jobs/">
+                      {% else %}
+                        <a class="nav-link" href="/jobs/">
+                      {% endif %}
+                        <span class="nav-link-text">Jobs</span>
+                        </a>
+                    </li>
+                  </ul>
+                </div>
+                </li>
+                <li class="nav-item">
+                  {% if request.path == '/chats/' %}
+                    <a class="nav-link active" href="/chats/">
+                  {% else %}
+                    <a class="nav-link" href="/chats/">
+                  {% endif %}
+                      <i class="fa fa-comments text-white"></i>
+                      <span class="nav-link-text">Chat</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                  {% if request.path == '/financeDetails/' %}
+                    <a class="nav-link active" href="/financeDetails/">
+                  {% else %}
+                    <a class="nav-link" href="/financeDetails/">
+                  {% endif %}
+                      <i class="fas fa-pound-sign"></i>
+                      <span class="nav-link-text">Finances</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                  {% if request.path == '/subscriptionDetails/' %}
+                    <a class="nav-link active" href="/subscriptionDetails/">
+                  {% else %}
+                    <a class="nav-link" href="/subscriptionDetails/">
+                  {% endif %}
+                      <i class="fas fa-file-invoice text-white"></i>
+                      <span class="nav-link-text">Subscriptions</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                  {% if request.path == '/saved/' %}
+                    <a class="nav-link active" href="/saved/">
+                  {% else %}
+                    <a class="nav-link" href="/saved/">
+                  {% endif %}
+                      <i class="fa fa-bookmark text-white"></i>
+                      <span class="nav-link-text">Saved</span>
+                    </a>
+                </li>
+               </ul>
+
+               <ul class="navbar-nav mt-4">
+                 <li class="nav-item">
+                  {% if request.path == '/disputes/' %}
+                      <a class="nav-link active" href="/disputes/">
+                  {% else %}
+                      <a class="nav-link" href="/disputes/">
+                  {% endif %}
+                       <i class="fas fa-gavel text-white"></i>
+                       <span class="nav-link-text">Disputes</span>
+                     </a>
+                 </li>
+                 <li class="nav-item support">
+                  {% if 'help' in request.path %}
+                    <a class="nav-link active" href="https://arcopenspace.com/help-support">
+                  {% else %}
+                    <a class="nav-link" href="https://arcopenspace.com/help-support">
+                  {% endif %}
+   				           <i class="far fa-question-circle text-white"></i>
+                     <span class="nav-link-text">Support</span>
+                     <i class="fas fa-external-link-alt ml-auto text-xs"></i>
+                   </a>
+                 </li>
+               </ul>
+            </div>
+          </div>
+        </div>
+      </nav>
+    {% endblock %}
+      <!-- Main content -->
+    <div class="main-content" id="panel">
+      {% block navbar %}
+        <!-- Topnav -->
+        <nav class="navbar navbar-top navbar-expand navbar-light bg-secondary border-bottom">
+          <div class="container-fluid">
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <!-- Search form -->
+              <!-- <form class="navbar-search navbar-search-dark form-inline mr-sm-3" id="navbar-search-main">
+                <div class="form-group mb-0">
+                  <div class="input-group input-group-alternative input-group-merge">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="fas fa-search"></i></span>
+                    </div>
+                    <input class="form-control" placeholder="Search" type="text">
+                  </div>
+                </div>
+                <button type="button" class="close" data-action="search-close" data-target="#navbar-search-main" aria-label="Close">
+                  <span aria-hidden="true">×</span>
+                </button>
+              </form> -->
+              <!-- Navbar links -->
+              <ul class="navbar-nav align-items-center  ml-md-auto ">
+                <li class="nav-item d-xl-none">
+                  <!-- Sidenav toggler -->
+                  <div class="pr-3 sidenav-toggler sidenav-toggler-light active" data-action="sidenav-pin" data-target="#sidenav-main">
+                    <div class="sidenav-toggler-inner">
+                      <i class="sidenav-toggler-line"></i>
+                      <i class="sidenav-toggler-line"></i>
+                      <i class="sidenav-toggler-line"></i>
+                    </div>
+                  </div>
+                </li>
+                <li class="nav-item d-sm-none">
+                  <a class="nav-link" href="#" data-action="search-show" data-target="#navbar-search-main">
+                    <i class="ni ni-zoom-split-in"></i>
+                  </a>
+                </li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+                    <i class="ni ni-bell-55" id="not_icon">
+                      {% if unread_count > 0 %}
+                      <span class="badge" style="position: absolute;top: -15px;background: red;border-radius: 50%;">{{ unread_count }}</span>
+                      {% endif %}
+                    </i>
+                  </a>
+                  <div class="dropdown-menu dropdown-menu-xl  dropdown-menu-right  py-0 overflow-hidden">
+                    <!-- Dropdown header -->
+                    <div class="px-3 py-3">
+                      <h6 class="text-sm text-muted m-0">You have <strong class="text-primary">{{ total_count }}</strong> notifications.</h6>
+                    </div>
+                    <!-- List group -->
+                    <div class="list-group list-group-flush">
+                      {% if notifications %}
+                        {% for notification in notifications %}
+                          <a href="#!" class="list-group-item list-group-item-action">
+                            <div class="row align-items-center">
+                              <div class="col-auto">
+                                <!-- Avatar -->
+                                <i class="fas fa-bell avatar rounded-circle"></i>
+                              </div>
+                              <div class="col ml--2">
+                                <div class="d-flex justify-content-between align-items-center">
+                                  <div>
+                                    <h4 class="mb-0 text-sm">{{ notification.status }}</h4>
+                                  </div>
+                                  <div class="text-right text-muted">
+                                    <small>{{ notification.time }}</small>
+                                  </div>
+                                </div>
+                                <p class="text-sm mb-0">{{ notification.body }}</p>
+                              </div>
+                            </div>
+                          </a>
+                        {% endfor %}
+                      {% endif %}
+                    </div>
+                    <!-- View all -->
+                    <!-- <a href="#!" class="dropdown-item text-center text-primary font-weight-bold py-3">View all</a> -->
+                  </div>
+                </li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="ni ni-ungroup"></i>
+                  </a>
+                  <div class="dropdown-menu dropdown-menu-lg dropdown-menu-dark bg-default  dropdown-menu-right ">
+                    <div class="row shortcuts px-4">
+                      <a href="#!" class="col-4 shortcut-item">
+                        <span class="shortcut-media avatar rounded-circle bg-gradient-red">
+                          <i class="ni ni-calendar-grid-58"></i>
+                        </span>
+                        <small>Calendar</small>
+                      </a>
+                      <a href="#!" class="col-4 shortcut-item">
+                        <span class="shortcut-media avatar rounded-circle bg-gradient-orange">
+                          <i class="ni ni-email-83"></i>
+                        </span>
+                        <small>Email</small>
+                      </a>
+                      <a href="#!" class="col-4 shortcut-item">
+                        <span class="shortcut-media avatar rounded-circle bg-gradient-info">
+                          <i class="ni ni-credit-card"></i>
+                        </span>
+                        <small>Payments</small>
+                      </a>
+                      <a href="#!" class="col-4 shortcut-item">
+                        <span class="shortcut-media avatar rounded-circle bg-gradient-green">
+                          <i class="ni ni-books"></i>
+                        </span>
+                        <small>Reports</small>
+                      </a>
+                      <a href="#!" class="col-4 shortcut-item">
+                        <span class="shortcut-media avatar rounded-circle bg-gradient-purple">
+                          <i class="ni ni-pin-3"></i>
+                        </span>
+                        <small>Maps</small>
+                      </a>
+                      <a href="#!" class="col-4 shortcut-item">
+                        <span class="shortcut-media avatar rounded-circle bg-gradient-yellow">
+                          <i class="ni ni-basket"></i>
+                        </span>
+                        <small>Shop</small>
+                      </a>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+              <ul class="navbar-nav align-items-center  ml-auto ml-md-0 ">
+                <li class="nav-item dropdown">
+                  <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <div class="media align-items-center">
+                      <span class="avatar avatar-sm rounded-circle">
+                        {% if profile_pic %}
+                          <img alt="Image placeholder" style="height: 36px;" src="{{ profile_pic }}">
+                        {% else %}
+                          <img alt="Image placeholder" style="height: 36px;" src="/static/images/employer.jpeg/">
+                        {% endif %}
+                      </span>
+                      <div class="media-body  ml-2  d-none d-lg-block">
+                        <span class="mb-0 text-sm  font-weight-bold">{{ current_user.name }}</span>
+                      </div>
+                    </div>
+                  </a>
+                  <div class="dropdown-menu  dropdown-menu-right ">
+                    <div class="dropdown-header noti-title">
+                      <h6 class="text-overflow m-0">Welcome!</h6>
+                    </div>
+                    <a href="/profileEnquirer/" class="dropdown-item">
+                      <i class="ni ni-single-02"></i>
+                      <span>My Profile</span>
+                    </a>
+                    <a href="/subscriptionDetails/" class="dropdown-item">
+                      <i class="fas fa-file-invoice"></i>
+                      <span>Subscriptions</span>
+                    </a>
+                    <a href="/settings/" class="dropdown-item">
+                      <i class="ni ni-settings-gear-65"></i>
+                      <span>Settings</span>
+                    </a>
+                    <a href="/disputes/" class="dropdown-item">
+                      <i class="fas fa-gavel"></i>
+                      <span>Disputes</span>
+                    </a>
+                    <a href="https://arcopenspace.com/help-support" class="dropdown-item">
+                      <i class="ni ni-support-16"></i>
+                      <span>Support</span>
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a href="/logoutEnquirer/" class="dropdown-item">
+                      <i class="ni ni-user-run"></i>
+                      <span>Logout</span>
+                    </a>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      {% endblock %}
+
+      {% block header %}
+        <!-- Header -->
+        <!-- Header -->
+        <div class="header pb-6">
+          <div class="container-fluid">
+            <div class="header-body">
+              <div class="row align-items-center py-4">
+                <div class="col-lg-6 col-7">
+                  <h6 class="h2 d-inline-block mb-0">Dashboard</h6>
+                </div>
+                <div class="col-lg-6 col-5 text-right">
+                  <a href="#" class="btn btn-sm btn-neutral">New</a>
+                  <a href="#" class="btn btn-sm btn-neutral">Filters</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endblock %}
+
+      {% block content %}
+      {% endblock %}
+
+      {% block footer %}
+        <!-- Footer -->
+        <footer class="footer py-3">
+          <div class="row align-items-center justify-content-lg-between">
+            <div class="col-lg-6">
+              <div class="copyright text-center  text-lg-left  text-muted">
+                © 2021 <a href="/" class="font-weight-bold ml-1" target="_blank">Arc Open Space</a>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <ul class="nav nav-footer justify-content-center justify-content-lg-end">
+                <li class="nav-item">
+                  <a href="https://arcopenspace.com/accessibility" class="nav-link" target="_blank">Accessibility</a>
+                </li>
+                <li class="nav-item">
+                  <a href="https://arcopenspace.com/trust-safety" class="nav-link" target="_blank">Trust & Safety</a>
+                </li>
+                <li class="nav-item">
+                  <a href="https://arcopenspace.com/terms-services" class="nav-link" target="_blank">Terms & Service</a>
+                </li>
+                <li class="nav-item">
+                  <a href="https://arcopenspace.com/privacy-policy" class="nav-link" target="_blank">Privacy Policy</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </footer>
+       {% endblock %}
+    </div>
+    </div>
+
+    {% block js %}
+      <!-- Core -->
+      <script src="{{ url_for('static', filename='js/Enquirer/dist-jquery.min.js') }}"></script>
+      <script src="{{ url_for('static', filename='js/Enquirer/js-bootstrap.bundle.min.js') }}"></script>
+      <script src="{{ url_for('static', filename='js/Enquirer/js-cookie-js.cookie.js') }}"></script>
+      <script src="{{ url_for('static', filename='js/Enquirer/jquery.scrollbar-jquery.scrollbar.min.js') }}"></script>
+      <script src="{{ url_for('static', filename='js/Enquirer/dist-jquery-scrollLock.min.js') }}"></script>
+      <!-- Optional JS -->
+      <script src="{{ url_for('static', filename='js/Enquirer/dist-Chart.min.js') }}"></script>
+      <script src="{{ url_for('static', filename='js/Enquirer/dist-Chart.extension.js') }}"></script>
+      <!-- Argon JS -->
+      <script src="{{ url_for('static', filename='js/Enquirer/js-argon.min.js') }}"></script>
+      <!-- Demo JS - remove this in your project -->
+      <script src="{{ url_for('static', filename='js/Enquirer/js-demo.min.js') }}"></script>
+      <!-- <script src="{{ url_for('static', filename='js/Enquirer/app-chat.js') }}"></script> -->
+      <script type="text/javascript">
+        $('#not_icon').click(function(){
+            $.ajax({  
+                type: "GET",
+                url: '/makeRead/',
+                success:function(response){
+                    console.log('success')
+               }
+            }) 
+        })
+      </script>
+    {% endblock %}
+
+    {% block extra_js %}{% endblock %}
+  </body>
+

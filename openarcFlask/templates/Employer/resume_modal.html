@@ -1,0 +1,85 @@
+<div class="modal-content">
+                    <div class="modal-body row py-2">
+                        <div class="col-md-12 p-0">
+                            <div class="card card-profile shadow mb-0">
+                                <div class="row justify-content-center">
+                                    <div class="col-lg-3 order-lg-2">
+                                        <div class="card-profile-image"> 
+                                            <a href="#"> 
+                                                {% if member_dict.profile_pic %}
+                                                    <img src="{{ member_dict.profile_pic }}" class="rounded-circle" /> 
+                                                {% else %}
+                                                    <img src="/static/images/dummy_user.png" class="rounded-circle" /> 
+                                                {% endif %}
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-header text-center border-0 pt-md-4 pb-md-4">
+                                    <div class="d-flex"> <button type="button" class="btn btn-link p-0 ml-auto" data-dismiss="modal">Close</button></div>
+                                </div>
+                                <div class="card-body pt-0">
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="card-profile-stats d-flex justify-content-center">
+                                                <div> <span class="heading">{{ jobs_count }}</span> <span class="description">Jobs Done</span></div>
+                                                <div> 
+                                                    <span class="heading">
+                                                        {% if member_dict.rating == 5 %} 
+                                                            <span class="fa fa-star checked"></span> 
+                                                            <span class="fa fa-star checked"></span> 
+                                                            <span class="fa fa-star checked"></span> 
+                                                            <span class="fa fa-star checked"></span> 
+                                                            <span class="fa fa-star checked"></span>
+                                                        {% elif member_dict.rating == 4 %} 
+                                                            <span class="fa fa-star checked"></span> 
+                                                            <span class="fa fa-star checked"></span> 
+                                                            <span class="fa fa-star checked"></span> 
+                                                            <span class="fa fa-star checked"></span> 
+                                                            <span class="fa fa-star"></span>
+                                                        {% elif member_dict.rating == 3 %} 
+                                                            <span class="fa fa-star checked"></span> 
+                                                            <span class="fa fa-star checked"></span> 
+                                                            <span class="fa fa-star checked"></span> 
+                                                            <span class="fa fa-star"></span> 
+                                                            <span class="fa fa-star"></span>
+                                                        {% elif member_dict.rating == 2 %} 
+                                                            <span class="fa fa-star checked"></span> 
+                                                            <span class="fa fa-star checked"></span> 
+                                                            <span class="fa fa-star "></span> 
+                                                            <span class="fa fa-star "></span> 
+                                                            <span class="fa fa-star "></span>
+                                                        {% elif member_dict.rating == 1 %} 
+                                                            <span class="fa fa-star checked"></span> 
+                                                            <span class="fa fa-star"></span> 
+                                                            <span class="fa fa-star"></span> 
+                                                            <span class="fa fa-star"></span> 
+                                                            <span class="fa fa-star"></span>
+                                                        {% else %} 
+                                                            <span class="fa fa-star"></span> 
+                                                            <span class="fa fa-star"></span> 
+                                                            <span class="fa fa-star"></span> 
+                                                            <span class="fa fa-star"></span> 
+                                                            <span class="fa fa-star"></span>
+                                                        {% endif %}
+                                                    </span> 
+                                                    <span class="description">Rating</span>
+                                                </div>
+                                                <div> 
+                                                    <span class="heading text-lowercase">{{ member_dict.hourly_rate }}/hr</span> <span class="description">Price</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="text-center">
+                                        <h5 class="h3">{{ member_dict.name }}</h5>
+                                        <div class="h4 font-weight-300">{{ member_dict.city}}, UK</div>
+                                        <div class="h4 badge bg-success text-white mb-0">Badge No. - {{ member_dict.badge_number }}</div>
+                                        <div class="h5 mt-4 font-weight-600">{{ member_dict.about }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer bg-secondary"> <a class="btn btn-sm btn-primary" target="_blank" href="{{ member_dict.document }}">Download Resume</a> <a href="/chats/{{ member_dict.member_id }}/" class="btn btn-sm btn-success">Contact</a><a href="#" class="ml-auto"><i class="ni ni-favourite-28"></i></a></div>
+                </div>

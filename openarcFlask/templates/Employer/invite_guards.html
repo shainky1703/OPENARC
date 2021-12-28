@@ -1,0 +1,86 @@
+{% extends 'Employer/base.html' %}
+{% block header %}
+	<div class="header pb-6">
+        <div class="container-fluid">
+            <div class="header-body">
+                <div class="row align-items-center py-4">
+                    <div class="col-lg-6 col-7">
+                        <h6 class="h2 mb-0">{{ business_name }}</h6> <label>Invite Guards</label></div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+	<div class="container-fluid mt--6">
+            <div class="row">
+                <div class="col-md-9 mb-5">
+                    <div class="table">
+                        <div class="invite_guard_tables">
+                        	{% for guard in guards_list %}
+	                            <div class="solid">
+	                                <div class="left col-md-4 p-0"> 
+	                                	{% if guard.profile_pic %}
+	                                		<img src="{{ guard.profile_pic }}" class="img-circle user-img-circle float-left mr-2" alt="User" />
+	                                	{% else %}
+	                                		<img src="/static/images/theme-team-4.jpg" class="img-circle user-img-circle float-left mr-2" alt="User" />
+	                                	{% endif %}
+	                                    <h3 class="mb-1">{{ guard.guard_name }}</h3>
+	                                    <p class="text-sm text-muted mb-0"> <span class="text-primary">{{ guard.hourly_rate }}</span>
+	                                    	<span class="text-xs ml-2"> 
+	                                    		{% if guard.rating == 5 %}
+			                                    	<span class="fa fa-star checked"></span> 
+			                                    	<span class="fa fa-star checked"></span> 
+			                                    	<span class="fa fa-star checked"></span> 
+			                                    	<span class="fa fa-star checked"></span>           
+			                                    	<span class="fa fa-star checked"></span>
+			                                    {% elif guard.rating == 4 %}
+			                                    	<span class="fa fa-star checked"></span> 
+			                                    	<span class="fa fa-star checked"></span> 
+			                                    	<span class="fa fa-star checked"></span> 
+			                                    	<span class="fa fa-star checked"></span>           
+			                                    	<span class="fa fa-star"></span>
+			                                    {% elif guard.rating == 3 %}
+			                                    	<span class="fa fa-star checked"></span> 
+			                                    	<span class="fa fa-star checked"></span> 
+			                                    	<span class="fa fa-star checked"></span> 
+			                                    	<span class="fa fa-star"></span>           
+			                                    	<span class="fa fa-star"></span>
+			                                    {% elif guard.rating == 2 %}
+			                                    	<span class="fa fa-star checked"></span> 
+			                                    	<span class="fa fa-star checked"></span> 
+			                                    	<span class="fa fa-star"></span> 
+			                                    	<span class="fa fa-star"></span>           
+			                                    	<span class="fa fa-star"></span>
+			                                    {% elif guard.rating == 1 %}
+			                                    	<span class="fa fa-star checked"></span> 
+			                                    	<span class="fa fa-star"></span> 
+			                                    	<span class="fa fa-star"></span> 
+			                                    	<span class="fa fa-star"></span>           
+			                                    	<span class="fa fa-star"></span>
+			                                    {% endif %} 
+		                                    </span>
+	                                    </p>
+	                                </div>
+	                                <div class="right mt-2 mb-2">
+	                                	{% if guard.invite_sent == False %} 
+	                                		<a href="/inviteGuard/{{job_id}}/{{guard.guard_id}}" class="btn btn-site px-4 invite-guard-btn float-right" name="invite"> <span class="fa fa-plus mr-2"></span>Invite </a>
+	                                	{% else %}
+	                                		<a class="btn btn-site px-4 invite-guard-btn float-right" name="invite"> <span class="fa fa-plus mr-2"></span>Invite Sent</a>
+	                                	{% endif %}
+	                                </div>
+	                            </div>
+	                        {% endfor %}
+                        </div>
+                    </div>
+                    <!-- <div class="text-center"> <a href="jobs.html" class="btn btn-site-white btn-border mt-3 mb-4" name="">Finish</a></div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+  
+{% endblock %}

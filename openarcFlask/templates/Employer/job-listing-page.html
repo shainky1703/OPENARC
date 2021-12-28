@@ -1,0 +1,126 @@
+{% extends 'Employer/base.html' %}
+
+{% block content %}
+        <!-- Main content -->
+    <div class="main-content" id="panel">
+      <!-- Topnav -->
+      <nav class="navbar navbar-top navbar-expand navbar-light bg-white navborder-bottom">
+        <div class="container-fluid">
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="mr-sm-3">
+              <h2 class="font-weight-extra-bold mb-0">Job Listings</h2>
+            </div>
+            <ul class="navbar-nav align-items-center ml-auto ml-md-0">
+                {% if  request.path == '/jobListing/'  %}
+                  <li class="nav-item">
+                    <a href="/addNewJob/" class="btn btn-site px-4">
+                      <span class="fa fa-plus mr-2"></span>
+                      Add Job
+                    </a>
+                  </li>
+                {% endif %}
+              </ul>
+            <div class="sidenav-toggler d-desktop d-xl-block" data-action="sidenav-unpin" data-target="#sidenav-main"
+            >
+              <div class="sidenav-toggler-inner liner-white">
+                <i class="sidenav-toggler-line"></i>
+                <i class="sidenav-toggler-line"></i>
+                <i class="sidenav-toggler-line"></i>
+              </div>
+            </div>
+      
+          
+        </div>
+      </nav>
+    <!-- Main content -->
+    
+      <div class="bg-white pt-0 pb-6">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="pt-2">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="mt-3">
+                    <h3>Jobs</h3>
+                    <div class="row">
+                      {% if jobs %}
+                        {% for job in jobs %}
+                            <div class="col-md-4">
+                              <div class="card">
+                                <div class="card-body">
+                                  <h3>{{ job.business_name }}</h3>
+                                  <p class="text-sm">
+                                    {{ job.job_description }}
+                                  </p>
+                                  <div>
+                                    <p class="listLocation mb-0">
+                                      <span class="fa fa-map-marker mr-2"></span>
+                                      <span>{{ job.city }}</span>
+                                    </p>
+                                    {% if job.days_left > 0 %}
+                                      <p class="daysLeft mb-0">
+                                        <span class="fa fa-map-marker mr-2"></span>
+                                        <span>{{ job.days_left }} days left</span>
+                                      </p>
+                                    {% endif %}
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                        {% endfor %}
+                      {% else %}
+                        <p>No jobs posted yet</p>
+                      {% endif %}
+                      </div>
+                      <h3>Drafts</h3>
+                      <div class="row">
+                      {% if draft_jobs %}
+                        {% for job in draft_jobs %}
+                            <div class="col-md-4">
+                              <div class="card">
+                                <a href="/draftDetails/{{ job.job_id }}"><div class="card-body draft_div" data-id="{{ job.job_id }}">
+                                  <h3>{{ job.business_name }}</h3>
+                                  <p class="text-sm">
+                                    {{ job.job_description }}
+                                  </p>
+                                  <div>
+                                    <p class="listLocation mb-0">
+                                      <span class="fa fa-map-marker mr-2"></span>
+                                      <span>{{ job.city }}</span>
+                                    </p>
+                                    {% if job.days_left > 0 %}
+                                      <p class="daysLeft mb-0">
+                                        <span class="fa fa-map-marker mr-2"></span>
+                                        <span>{{ job.days_left }} days left</span>
+                                      </p>
+                                    {% endif %}
+                                  </div>
+                                </div></a>
+                              </div>
+                            </div>
+                        {% endfor %}
+                      {% else %}
+                        <p>No jobs posted yet</p>
+                      {% endif %}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endblock %}
+    {% block extra_js %}
+      <!-- <script type="text/javascript">
+        $(document).ready(function(){
+          $('.draft_div').hover(function(){
+            $(this).addClass("selected");
+            $(this).removeClass("selected");
+          })
+        })
+      </script> -->
+    {% endblock %}

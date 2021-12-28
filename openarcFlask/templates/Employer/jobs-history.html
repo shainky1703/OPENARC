@@ -1,0 +1,77 @@
+{% extends 'Employer/base.html' %}
+{% block header %}
+    
+{% endblock %}
+{% block content %}
+    <div class="resident_description_data container-fluid p-0">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2>{{ job_dict.business_name }}</h2>
+                    <p><b>Type:</b> {{ job_dict.job_type }} | <b>Duration:</b> {{ job_dict.shift_start_date }} - {{ job_dict.shift_end_date }}</p>
+                </div>
+                <div class="col-md-8">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card bg-secondary text-center py-4">
+                                <h3>Total Hours</h3>
+                                <p class="mb-0 text-xl font-weight-bold text-primary">{{ total_hours_worked }}</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card bg-secondary text-center py-4">
+                                <h3>Total Amount</h3>
+                                <p class="mb-0 text-xl font-weight-bold text-success">{{ total_amount_spent }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="my-4">
+                        <h5>Hired Members</h5>
+                        <div class="d-flex justify-content-around row">
+                            {% for member in hired_members %}
+                                <a href="#" data-toggle="collapse" class="col-sm-6 collapsed history_link" aria-expanded="true" data-id="{{ member.application_id }}">
+                                    <div class="solid">
+                                        <div class="float-left">
+                                            {% if member.profile_pic %} 
+                                                <img src="{{ member.profile_pic }}" class="img-circle user-img-circle float-left mr-2" alt="User" />
+                                            {% else %}
+                                                <img src="/static/images/theme-team-4.jpg" class="img-circle user-img-circle float-left mr-2" alt="User" />
+                                            {% endif %}
+                                            <h3 class="float-left mb-0">{{ member.member_name }}</h3>
+                                            <div class="text-muted text-xs">Completed {{ member.hours }}hrs</div>
+                                        </div>
+                                        <div class="float-right">
+                                            <p class="text-sm text-muted"><span class="text-primary">{{ member.hourly_rate }}</span></p>
+                                        </div>
+                                    </div>
+                                </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4" id="work_history">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block extra_js %}
+    <script type="text/javascript">
+        $('.history_link').click(function(){
+            var application_id = $(this).attr('data-id')
+            data = {
+              "application_id" : application_id,
+            }
+            $.ajax({  
+                type: "POST",
+                url: '/getMemberWorkHistory/',
+                data: data,
+                success:function(response){
+                    console.log('html',response)
+                    $('#work_history').html(response.html)
+                    // $('.work_history').show();
+               }
+            }) 
+        })
+    </script>
+{% endblock %}

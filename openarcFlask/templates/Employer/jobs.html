@@ -1,0 +1,161 @@
+{% extends 'Employer/base.html' %}
+{% block header %}
+    <div class="header pb-6">
+        <div class="container-fluid">
+            <div class="header-body">
+                <div class="row align-items-center py-4">
+                    <div class="col-lg-9"><h6 class="h2 d-inline-block mb-0">Jobs</h6></div>
+                    <div class="col-lg-3">
+                        <div class="nav-wrapper">
+                            <ul class="nav nav-pills nav-fill" id="tabs-text" role="tablist">
+                                <li class="nav-item">
+                                    <a class="btn btn-md btn-primary p-2 active" id="tabs-text-1-tab" data-toggle="tab" href="#tabs-text-1" role="tab" aria-controls="tabs-text-1" aria-selected="true">On-going</a>
+                                </li>
+                                <li class="nav-item"><a class="btn btn-md btn-primary p-2" id="tabs-text-2-tab" data-toggle="tab" href="#tabs-text-2" role="tab" aria-controls="tabs-text-2" aria-selected="false">Post</a></li>
+                                <li class="nav-item"><a class="btn btn-md btn-primary p-2" id="tabs-text-3-tab" data-toggle="tab" href="#tabs-text-3" role="tab" aria-controls="tabs-text-3" aria-selected="false">Past</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block content %}
+        <div class="container-fluid">
+                <div class="col-md-12 no-shadow p-0">
+                    <div class="card-body p-0">
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active" id="tabs-text-1" role="tabpanel" aria-labelledby="tabs-text-1-tab">
+                                {% if active_projects %}
+                                        <div class="row">
+                                            {% for project in active_projects  %}
+                                                <div class="col-md-4">
+                                                    <div class="card">
+                                                        <div class="card-body p-3">
+                                                            <a href="/jobsgoing/{{ project.job_id }}" class="link">
+                                                                <div class="overflow-hidden"><h3 class="float-left">{{ project.business_name }}</h3></div>
+                                                                <p class="text-sm text-muted">{{ project.company_name }}</p>
+                                                                <div>
+                                                                    <p class="listLocation mb-0"><span class="fa fa-map-marker mr-2"></span> <span>{{ project.city }}</span></p>
+                                                                </div>
+                                                                <div>
+                                                                    <div class="avatar-group float-left">
+                                                                        <a href="#" class="avatar avatar-xs rounded-circle" data-toggle="tooltip" data-original-title="Ryan Tompson"> <img alt="Image placeholder" src="/static/images/theme-team-1.jpg" /> </a>
+                                                                        <a href="#" class="avatar avatar-xs rounded-circle" data-toggle="tooltip" data-original-title="Romina Hadid"> <img alt="Image placeholder" src="/static/images/theme-team-2.jpg" /> </a>
+                                                                        <a href="#" class="avatar avatar-xs rounded-circle" data-toggle="tooltip" data-original-title="Alexander Smith"> <img alt="Image placeholder" src="/static/images/theme-team-3.jpg" /> </a>
+                                                                    </div>
+                                                                    <p class="text-sm mt-4 ml-5 mb-0">{{ project.applicants }}</p>
+                                                                </div>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                {% else %}
+                                    <div class="col-md-12 py-9 d-flex justify-content-around">
+                                        <div class="col-md-5 text-center">
+                                            <img src="/static/images/Enquirer/svg/no jobs.svg" alt="No Jobs" />
+                                            <h4 class="mt-3">No Jobs active</h4>
+                                            <p class="text-muted">You have no active jobs.</p>
+                                        </div>
+                                    </div>
+                                {% endif %}
+
+                            </div>
+                            <div class="tab-pane fade" id="tabs-text-2" role="tabpanel" aria-labelledby="tabs-text-2-tab">
+                                {% if posted_projects %}
+                                <div class="row">
+                                    {% for project in posted_projects %}
+                                        <div class="col-md-4">
+                                            <div class="card">
+                                                <div class="card-body p-3">
+                                                    <a href="/jobsList/{{ project.job_id}}/" class="link">
+                                                        <div class="overflow-hidden">
+                                                            <h3 class="float-left">{{ project.business_name }}</h3>
+                                                            <p class="float-right text-sm text-muted"><span class="text-primary">{{ project.budget }}</span></p>
+                                                        </div>
+                                                        <p class="text-sm text-muted">{{ project.company_name }}</p>
+                                                        <div>
+                                                            <p class="listLocation mb-0"><span class="fa fa-map-marker mr-2"></span> <span>{{ project.city }}</span></p>
+                                                            <p class="daysLeft mb-0"><span class="fa fa-map-marker mr-2"></span> <span>{{ project.days_remaining }} days left</span></p>
+                                                        </div>
+                                                        <div>
+                                                            <div class="avatar-group float-left">
+                                                                <a href="#" class="avatar avatar-xs rounded-circle" data-toggle="tooltip" data-original-title="Ryan Tompson"> <img alt="Image placeholder" src="/static/images/theme-team-1.jpg" /> </a>
+                                                                <a href="#" class="avatar avatar-xs rounded-circle" data-toggle="tooltip" data-original-title="Romina Hadid"> <img alt="Image placeholder" src="/static/images/theme-team-2.jpg" /> </a>
+                                                                <a href="#" class="avatar avatar-xs rounded-circle" data-toggle="tooltip" data-original-title="Alexander Smith"> <img alt="Image placeholder" src="/static/images/theme-team-3.jpg" /> </a>
+                                                            </div>
+                                                            {% if project.applicants %}
+                                                            <p class="text-sm mt-4 ml-5 mb-0">{{ project.applicants }}</p>
+                                                            {% else %}
+                                                                <p class="text-sm mt-4 ml-5 mb-0">No member has applied yet</p>
+                                                            {% endif %}
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                                {% else %}
+                                    <div class="col-md-12 py-9 d-flex justify-content-around">
+                                        <div class="col-md-5 text-center">
+                                            <img src="/static/images/Enquirer/svg/no jobs.svg" alt="No Jobs" />
+                                            <h4 class="mt-3">No Posted Jobs added</h4>
+                                            <p class="text-muted">You haven't added any job's yet, add jobs to see all the listing of the jobs.</p>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <div class="tab-pane fade" id="tabs-text-3" role="tabpanel" aria-labelledby="tabs-text-3-tab">
+                                {% if past_projects %}
+                                <div class="row">
+                                    {% for project in past_projects %}
+                                    <div class="col-md-4">
+                                        <div class="card">
+                                            <div class="card-body completed p-3">
+                                                <a href="/jobsHistory/{{ project.job_id }}" class="link">
+                                                    <label>Completed</label>
+                                                    <div class="head">
+                                                        <h3>{{ project.business_name }}</h3>
+                                                        <p class="price">{{ project.total_amount }}</p>
+                                                    </div>
+                                                    <p class="text-sm text-muted">{{ project.company_name }}</p>
+                                                    <div>
+                                                        <p class="listLocation mb-0"><span class="fa fa-map-marker mr-2"></span> <span>{{ project.city }}</span></p>
+                                                    </div>
+                                                    <div>
+                                                        <div class="avatar-group float-left">
+                                                            <a href="#" class="avatar avatar-xs rounded-circle" data-toggle="tooltip" data-original-title="Ryan Tompson"> <img alt="Image placeholder" src="/static/images/theme-team-1.jpg" /> </a>
+                                                            <a href="#" class="avatar avatar-xs rounded-circle" data-toggle="tooltip" data-original-title="Romina Hadid"> <img alt="Image placeholder" src="/static/images/theme-team-2.jpg" /> </a>
+                                                            <a href="#" class="avatar avatar-xs rounded-circle" data-toggle="tooltip" data-original-title="Alexander Smith"> <img alt="Image placeholder" src="/static/images/theme-team-3.jpg" /> </a>
+                                                        </div>
+                                                        <p class="text-sm mt-4 ml-5 mb-0">{{ project.applicants }}</p>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                                {% else %}
+                                    <div class="col-md-12 py-9 d-flex justify-content-around">
+                                        <div class="col-md-5 text-center">
+                                            <img src="/static/images/Enquirer/svg/no jobs.svg" alt="No Jobs" />
+                                            <h4 class="mt-3">No Past Jobs</h4>
+                                            <p class="text-muted">No completed jobs</p>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+{% endblock %}
+{% block extra_js %}
+    
+{% endblock %}

@@ -1,0 +1,153 @@
+{% extends 'Employer/base.html' %}
+{% block header %}
+    <div class="header pb-6 d-flex align-items-center" style="min-height: 350px;background-size: cover;background-position: center top;">
+          <!-- Header container -->
+          <div class="container-fluid d-flex align-items-center">
+            <div class="row">
+              <div class="col-lg-7 col-md-10">
+                <h1 class="display-2">Hello {{ user_details.name }}</h1>
+                <p class="mt-0 mb-5">This is your profile page. You can see the progress you've made with your work and manage your projects or assigned tasks</p>
+              </div>
+            </div>
+          </div>
+    </div>
+{% endblock %}
+{% block content %}
+  <div class="container-fluid mt--6">
+            <div class="row">
+                <div class="col-xl-4 order-xl-2">
+                    <div class="card card-profile">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-3 order-lg-2">
+                                <div class="card-profile-image"> 
+                                    {% if profile_pic %}
+                                        <a href="#"> <img src="{{ profile_pic }}" class="rounded-circle"></a>
+                                    {% else %}
+                                        <a href="#"> <img src="/static/images/employer.jpeg" class="rounded-circle"></a>
+                                    {% endif %} 
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body pt-7">
+                            <div>
+                                <h3>{{ user_details.name }}</h3>
+                                <h4 class="font-weight-400"><b>Location :</b> {{ profile.city }}, UK</h4>
+                                <p class="text-sm"><b>About:</b>{{ profile.about }}</p>
+                                <p class="text-sm"><b>Registration No.:</b></b>{{ profile.registration_number }}</p>
+                                <p class="text-sm"><b>ACS Reference No.:</b>{{ profile.acs_reference_number }}</p>
+                                <p class="text-sm"><b>Address:</b> {{ profile.address }}</p>
+                                <p class="text-sm"><b>City:</b> {{ profile.city }}</p>
+                                <p class="text-sm"><b>Country:</b> United Kingdom</p>
+                                <p class="text-sm"><b>Postal Code:</b>{{ profile.postal_code }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-8 order-xl-1 mb-7">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="card bg-gradient-info border-0">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col">
+                                            <h5 class="card-title text-uppercase text-muted mb-0 text-white">Jobs Posted</h5> <span class="h2 font-weight-bold mb-0 text-white">{{ jobs }}</span></div>
+                                        <div class="col-auto">
+                                            <div class="icon icon-shape bg-white text-dark rounded-circle shadow"> <i class="ni ni-active-40"></i></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="card bg-gradient-danger border-0">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col">
+                                            <h5 class="card-title text-uppercase text-muted mb-0 text-white">Jobs Completed</h5> <span class="h2 font-weight-bold mb-0 text-white">{{ complete_count }}</span></div>
+                                        <div class="col-auto">
+                                            <div class="icon icon-shape bg-white text-dark rounded-circle shadow"> <i class="ni ni-spaceship"></i></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="row align-items-center">
+                                <div class="col-12">
+                                    <h3 class="mb-0">Edit profile</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <form method="POST" action="/profileEnquirer/">
+                                <h6 class="heading-small text-muted mb-4">User information</h6>
+                                <div class="pl-lg-4">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="form-group"> <label class="form-control-label" for="input-email">Email address</label> <input type="email" id="input-email" class="form-control" placeholder="jesse@example.com" value="{{ user_details.email }}" disabled></div>
+                                        </div>
+                                        <!-- <div class="col-lg-6">
+                                            <div class="form-group"> <label class="form-control-label" for="input-password">Password</label> <input type="password" id="pass" class="form-control" name="password" minlength="8" placeholder="Change Password"></div>
+                                        </div> -->
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="form-group"> <label class="form-control-label" for="input-first-name">Company name*</label> <input type="text" id="input-first-name" class="form-control" name="company" placeholder="Company name" value="{{ user_details.name}}" required></div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group"> <label class="form-control-label" for="input-last-name">Company Contact*</label> <input type="text" id="input-last-name" class="form-control" name="contact" placeholder="Company Contact" value="{{ profile.company_contact }}" required></div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="form-group"> <label class="form-control-label" for="input-first-name">Registration No.*</label> <input type="text" id="registration" class="form-control" placeholder="xyz-1234" value="{{ profile.registration_number }}" name="registration_number" required></div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group"> <label class="form-control-label" for="input-last-name">ACS reference Number*</label> <input type="text" id="reference" class="form-control" placeholder="xyz-abcd-efgh" value="{{ profile.acs_reference_number }}" name="acs_reference_number" required></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr class="my-4">
+                                <h6 class="heading-small text-muted mb-4">Contact information</h6>
+                                <div class="pl-lg-4">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group"> <label class="form-control-label" for="input-address">Address*</label> <input id="input-address" class="form-control" placeholder="Company Address" type="text" value="{{ profile.address }}" name="address" required></div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-4">
+                                            <div class="form-group"> <label class="form-control-label" for="input-city">City</label> <input type="text" id="input-city" class="form-control" placeholder="City"  value="{{ profile.city }}" name="city" required></div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="form-group"> <label class="form-control-label" for="input-country">Country</label> <input type="text" id="input-country" class="form-control" placeholder="Country" value="United Kingdom" disabled></div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="form-group"> <label class="form-control-label" for="input-country">Postal code</label> <input type="text" id="input-postal-code" class="form-control" placeholder="Postal code" value="{{ profile.postal_code }}" name="postal_code" required></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr class="my-4">
+                                <h6 class="heading-small text-muted mb-4">About me</h6>
+                                <div class="pl-lg-4">
+                                    <div class="form-group"> <label class="form-control-label">About Me</label><textarea rows="4" class="form-control" placeholder="A few words about you ..." sapling-textarea-id="cdcce483-d2c5-4428-873a-f7e6d1eea543" name="about">{{ profile.about }}</textarea>
+                                        <div contenteditable="true"
+                                            sapling-textarea-id="cdcce483-d2c5-4428-873a-f7e6d1eea543" sapling-id="91fe43d1-e3fa-4ed5-84ab-2aff1725f3a4" style="z-index: auto; font-style: normal; font-weight: 400; font-size: 14px; font-family: &quot;Open Sans&quot;, sans-serif; line-height: 21px; letter-spacing: 0px; word-spacing: 0px; color: transparent; opacity: 0; background: none 0% 0% / auto repeat scroll padding-box padding-box transparent; overflow: auto; white-space: pre-wrap; pointer-events: none; border-top: 1px solid transparent; border-left: 1px solid transparent; box-sizing: border-box; padding: 10px 12px; display: block; position: absolute; left: 48px; top: 776px; height: 106px; width: 671.328px;">A beautiful premium dashboard for Bootstrap 4.</div>
+                                        <div is-sapling-overlay="true" style="pointer-events: none; overflow: hidden; padding-bottom: 2px; z-index: auto; position: absolute; left: 48px; top: 776px; height: 106px; width: 671.328px; font-style: normal; font-variant: normal; font-weight: 400; font-stretch: 100%; font-size: 14px; font-family: &quot;Open Sans&quot;, sans-serif; text-transform: none; letter-spacing: normal; word-spacing: 0px; tab-size: 8;"></div>
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                  <div class="row align-items-center">
+                                      <div class="col-12 text-right"> <input type="submit" class="btn btn-md btn-primary py-2" value="Update"></div>
+                                  </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>   
+{% endblock %}

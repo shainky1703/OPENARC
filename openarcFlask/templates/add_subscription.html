@@ -1,0 +1,113 @@
+{% extends 'dashboard.html' %}
+{% block extra_css %}
+	<link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet">
+{% endblock %}
+{% block content %}
+    <div class="app-main__outer">
+        <div class="app-main__inner">
+            {% if mode == 'add' %}
+            	<ul class="body-tabs body-tabs-layout tabs-animated body-tabs-animated nav">
+                    <li class="nav-item">
+                        <a role="tab" class="nav-link active" id="tab-0" data-toggle="tab" href="#tab-content-0">
+                        <span>ADD SUBSCRIPTION</span>
+                        </a>
+                    </li>
+                </ul>
+                <div class="alert alert-danger" id="empty_fields" style="display: none;">
+                  <strong>Error!</strong>Please fill all the fields!
+                </div>
+                <div class="alert alert-danger" id="error_msg" style="display: none;">
+                  
+                </div>
+                <div class="alert alert-success" id="success_msg" style="display: none;">
+                  <strong>Success!</strong>Subscription Added Successfully!!
+                </div>
+                <div class="tab-content">
+                    <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
+                        <div class="main-card mb-3 card">
+                            <div class="card-body">
+                                <form class="">
+                                    <div class="col-md-8">
+                                            <div class="position-relative form-group"><label for="exampleZip" class="">User</label>
+                                                <select class="form-control" id="plan_user">
+                                                    <option value="">--Select User--</option>
+                                                    {% for user in users %}
+                                                    <option value="{{ user.id }}">{{ user.email }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                    </div>
+                                    <div class="col-md-8">
+                                            <div class="position-relative form-group"><label for="exampleZip" class="">Plan</label>
+                                                <select class="form-control" id="plan_name">
+                                                    <option value="">--Select Plan--</option>
+                                                    {% for plan in plans %}
+                                                    <option value="{{ plan.id }}">{{ plan.plan_name }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                        </div>
+                                    <input type="button" id="add_subscription_button" class="btn btn-primary" value="Add">
+                                </form>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            {% else %}
+                <ul class="body-tabs body-tabs-layout tabs-animated body-tabs-animated nav">
+                    <li class="nav-item">
+                        <a role="tab" class="nav-link active" id="tab-0" data-toggle="tab" href="#tab-content-0">
+                        <span>EDIT PLAN</span>
+                        </a>
+                    </li>
+                </ul>
+                <div class="alert alert-danger" id="empty_fields" style="display: none;">
+                  <strong>Error!</strong>Please fill all the fields!
+                </div>
+                <div class="alert alert-danger" id="error_msg" style="display: none;">
+                  
+                </div>
+                <div class="alert alert-success" id="success_msg" style="display: none;">
+                  <strong>Success!</strong>Plan Updated Successfully!!
+                </div>
+                <div class="tab-content">
+                    <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
+                        <div class="main-card mb-3 card">
+                            <div class="card-body">
+                                <form class="">
+                                    <div class="col-md-8">
+                                            <div class="position-relative form-group"><label for="exampleZip" class="">User</label>
+                                                <select class="form-control" id="plan_user">
+                                                    <option value="{{ user_id }}">{{ email }}</option>
+                                                    {% for user in users %}
+                                                    <option value="{{ user.id }}">{{ user.email }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                    </div>
+                                    <div class="col-md-8">
+                                            <div class="position-relative form-group"><label for="exampleZip" class="">Plan</label>
+                                                <select class="form-control" id="plan_name">
+                                                    <option value="{{ plan_id }}">{{ plan_name }}</option>
+                                                    {% for plan in plans %}
+                                                    <option value="{{ plan.id }}">{{ plan.plan_name }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                        </div>
+                                    <input type="button" id="edit_subscription_button" data-id="{{ subscription.id }}"class="btn btn-primary" value="Update">
+                                </form>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            {% endif %}
+    	</div>
+	</div>
+
+{% endblock %}
+{% block extra_js %}
+	<script type="text/javascript" src="/static/js/subscription.js"></script>
+{% endblock %}

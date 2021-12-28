@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+th, td {
+  padding: 5px;
+  text-align: left;
+}
+</style>
+</head>
+<body>
+
+
+<h2>Invoice Details:</h2>
+
+<table style="width:100%">
+  <tr>
+    <th>Company Name</th>
+    <td>{{ json_data.company_name }}</td>
+  </tr>
+  <tr>
+    <th>Employee Name </th>
+    <td>{{ json_data.employee }}</td>
+  </tr>
+  <tr>
+    <th>Hourly Rate</th>
+    <td>{{ json_data.hourly_rate }}</td>
+  </tr>
+  <tr>
+    <th>Date Paid </th>
+    <td>{{ json_data.payment_date }}</td>
+  </tr>
+  <tr>
+    <th>Total Hours</th>
+    <td>{{ json_data.total_hours }}</td>
+  </tr>
+  <tr>
+    <th>Billing Period</th>
+    <td>{{ json_data.start_date }}-{{ json_data.end_date }}</td>
+  </tr>
+  <tr>
+    <th>Total Invoice Amount </th>
+    <td>{{ json_data.amount }}</td>
+  </tr>
+</table>
+
+</body>
+</html>

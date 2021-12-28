@@ -1,0 +1,195 @@
+{% extends 'Employer/base.html' %}
+{% block header %}
+    <div class="header bg-secondary mb-5">
+        <div class="container-fluid">
+            <div class="header-body card-body px-2">
+                <div class="row align-items-center card py-3 bg-primary text-white">
+                    <div class="col-lg-12 p-4 row">
+                        <div class="col-md-12">
+                            <div class="float-left col-md-9 p-0">
+                                <h6 class="h2 d-inline-block mb-0 mt-0 float-left text-white">{{ job_details.business_name }}</h6><br /> <br />
+                                <p class="text-sm">{{ job_details.job_description }}</p>
+                            </div>
+                            <div class="float-right col-md-3 p-0">
+                                <p class="float-right mb-0 mt-0 text-muted text-sm text-white">Start Date: {{ job_details.shift_start_date }}</p>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <p class="badge bg-success float-left mb-0 mt-3">Budget: {{ job_details.budget }}</p>
+                            <p class="float-right mb-0"><a href="/jobPreview/{{job_details.id}}/" class="btn btn-success">View Project</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block content %}
+    <div class="container-fluid">
+            <div class="col-md-12 no-shadow p-0">
+                {% with messages = get_flashed_messages() %}
+                  {% if messages %}
+                    <ul class=flashes>
+                    {% for message in messages %}
+                      <li>{{ message }}</li>
+                    {% endfor %}
+                    </ul>
+                  {% endif %}
+                {% endwith %}
+                <h3 class="mb-3">Applications</h3>
+                {% if applicants %}
+                    {% for applicant in applicants %}
+                        <div class="card-body shadow p-3 mb-5 joblist px-4">
+                            <div class="row align-items-center justify-content-center">
+                                <div class="col-auto"> 
+                                    <a href="#" class="avatar avatar-xl rounded-circle view_member" data-id="{{ applicant.member_id }}">
+                                    {% if applicant.profile_pic %} 
+                                        <img alt="Image placeholder" src="{{ applicant.profile_pic }}" /> 
+                                    {% else %}
+                                        <img alt="Image placeholder" src="/static/images/theme-team-2.jpg" /> 
+                                    {% endif %}
+                                    </a>
+                                </div>
+                                <div class="col-auto">
+                                    <h4 class="mb-0"> <a href="#" class="view_member" data-id="{{ applicant.member_id }}">{{ applicant.member_name }}</a></h4>
+                                    <p class="text-xs text-muted mb-1">{{ applicant.city }}, UK</p>
+                                    <div class="text-sm">
+                                        {% if applicant.rating == 5 %} 
+                                            <span class="fa fa-star checked"></span> 
+                                            <span class="fa fa-star checked"></span> 
+                                            <span class="fa fa-star checked"></span> 
+                                            <span class="fa fa-star checked"></span> 
+                                            <span class="fa fa-star checked"></span>
+                                        {% elif applicant.rating == 4 %} 
+                                            <span class="fa fa-star checked"></span> 
+                                            <span class="fa fa-star checked"></span> 
+                                            <span class="fa fa-star checked"></span> 
+                                            <span class="fa fa-star checked"></span> 
+                                            <span class="fa fa-star"></span>
+                                        {% elif applicant.rating == 3 %} 
+                                            <span class="fa fa-star checked"></span> 
+                                            <span class="fa fa-star checked"></span> 
+                                            <span class="fa fa-star checked"></span> 
+                                            <span class="fa fa-star"></span> 
+                                            <span class="fa fa-star"></span>
+                                        {% elif applicant.rating == 2 %} 
+                                            <span class="fa fa-star checked"></span> 
+                                            <span class="fa fa-star checked"></span> 
+                                            <span class="fa fa-star "></span> 
+                                            <span class="fa fa-star "></span> 
+                                            <span class="fa fa-star "></span>
+                                        {% else %} 
+                                            <span class="fa fa-star checked"></span> 
+                                            <span class="fa fa-star"></span> 
+                                            <span class="fa fa-star"></span> 
+                                            <span class="fa fa-star"></span> 
+                                            <span class="fa fa-star"></span>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <p class="text-sm mb-0">{{ applicant.message }}</p>
+                                </div>
+                                <div class="col-auto">
+                                    <p class="col-md-12 float-right text-md font-weight-bold mb-1 text-right">{{ applicant.pay_expected }}<br /> <span class="text-muted text-xs float-right">Price</span></p> <br />
+                                    <div class="float-right">
+                                        {% if applicant.status == 'Pending' %} 
+                                            <button type="button" class="btn btn-sm btn-primary fund_details" data-id="{{ applicant.application_id }}">Accept</button>
+                                            <button type="button" class="btn btn-sm btn-outline-primary">Cancel</button> 
+                                            <button type="button" class="btn btn-sm btn-outline-warning">Decline</button>
+                                        {% else %}
+                                            <button type="button" class="btn btn-sm btn-primary fund_details" data-id="{{ applicant.application_id }}" disabled>Accept</button>
+                                            <button type="button" class="btn btn-sm btn-outline-primary" disabled>Cancel</button> 
+                                            <button type="button" class="btn btn-sm btn-outline-warning" disabled>Decline</button>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div> 
+                    {% endfor %} 
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="modal fade" id="modal-default" tabindex="-1">
+            <div class="modal-dialog modal- modal-dialog-centered modal-" role="document">
+                <div class="modal-content resume_div">
+                    <div class="modal-body row py-2">
+                        <div class="col-md-12 p-0">
+                            <div class="card card-profile shadow mb-0">
+                                <div class="row justify-content-center">
+                                    <div class="col-lg-3 order-lg-2">
+                                        <div class="card-profile-image"> <a href="#"> <img src="images/theme-team-4.jpg" class="rounded-circle" /> </a></div>
+                                    </div>
+                                </div>
+                                <div class="card-header text-center border-0 pt-md-4 pb-md-4">
+                                    <div class="d-flex"> <button type="button" class="btn btn-link p-0 ml-auto" data-dismiss="modal">Close</button></div>
+                                </div>
+                                <div class="card-body pt-0">
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="card-profile-stats d-flex justify-content-center">
+                                                <div> <span class="heading">22</span> <span class="description">Jobs Done</span></div>
+                                                <div> <span class="heading"> <span class="fa fa-star checked"></span> <span class="fa fa-star checked"></span> <span class="fa fa-star checked"></span> <span class="fa fa-star checked"></span> <span class="fa fa-star"></span>                                                    </span> <span class="description">Rating</span></div>
+                                                <div> <span class="heading text-lowercase">€12/hr </span> <span class="description">Price</span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="text-center">
+                                        <h5 class="h3"> Jessica Jones</h5>
+                                        <div class="h4 font-weight-300">Bucharest, Romania</div>
+                                        <div class="h4 badge bg-success text-white mb-0">Badge No. - 254516</div>
+                                        <div class="h5 mt-4 font-weight-600"> Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled
+                                            it to make a type specimen book.</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer bg-secondary"> <a class="btn btn-sm btn-primary" href="#">Download Resume</a> <a href="#" class="btn btn-sm btn-success">Contact</a><a href="#" class="ml-auto"><i class="ni ni-favourite-28"></i></a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 fund_details_modal">
+        
+    </div>
+{% endblock %}
+{% block extra_js %}
+    <script type="text/javascript">
+        $('.view_member').click(function(){
+            var member_id = $(this).attr('data-id')
+            data = {
+              "member_id" : member_id,
+            }
+            $.ajax({  
+                type: "POST",
+                url: '/getMemberProfile/',
+                data: data,
+                success:function(response){
+                    console.log('html',response)
+                    $('.resume_div').html(response.html)
+                    $('#modal-default').modal('show')
+               }
+            }) 
+        })
+
+        $('.fund_details').click(function(){
+            var application_id = $(this).attr('data-id')
+            data = {
+              "application_id" : application_id,
+            }
+            $.ajax({  
+                type: "POST",
+                url: '/fundJobDetails/',
+                data: data,
+                success:function(response){
+                    console.log('html',response)
+                    $('.fund_details_modal').html(response.html)
+                    $('#modal-default1').modal('show')
+               }
+            }) 
+        })
+    </script>
+{% endblock %}

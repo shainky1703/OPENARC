@@ -1,0 +1,43 @@
+<div id="member1" class=" bg-secondary p-3" style="">
+    <div class="solid bg-white mt-0">
+        <div class="float-left">
+            {% if member_dict.profile_pic %} 
+                <img src="{{ member_dict.profile_pic }}" class="img-circle user-img-circle float-left mr-2" alt="User" />
+            {% else %}
+                <img src="/static/images/theme-team-4.jpg" class="img-circle user-img-circle float-left mr-2" alt="User" />
+            {% endif %}
+            <h3 class="float-left mb-0">{{ member_dict.name }}</h3>
+            <div class="text-muted text-xs">Completed {{ member_dict.hours }}hrs</div>
+        </div>
+        <div class="float-right">
+            <p class="text-sm text-muted"><span class="text-primary">{{ member_dict.hourly_rate }}</span>/hr</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card bg-white text-center py-3">
+                <h3>Total Hours</h3>
+                <p class="mb-0 text-xl font-weight-bold text-primary">{{ member_dict.hours }}</p>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card bg-white text-center py-3">
+                <h3>Total Amount</h3>
+                <p class="mb-0 text-xl font-weight-bold text-success">£{{ member_dict.amount }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="card p-3 mb-5">
+        <div class="row">
+            {% for log in logs %}
+                <div class="col-md-12">
+                    <h4>{{ log.date }}</h4>
+                </div>
+                <div class="col-md-6"><label>Start Time</label><input type="time" class="form-control p-1" id="start_time" name="start_time" value="{{ log.start_time }}" disabled="true" /></div>
+                <div class="col-md-6"><label>End Time</label><input type="time" class="form-control p-1" id="end_time" name="end_time" value="{{ log.end_time }}" disabled="true" /></div>
+                <div class="col-md-6"><label>Total Hours</label><input type="text" class="form-control p-1" id="hours1" name="hours" value="{{ log.hours }}" disabled="true" /></div>
+                <div class="col-md-6"><label>Extra Hours</label><input type="text" class="form-control p-1" id="hours2" name="hours" value="{{ log.after_hours }}" disabled="true" /></div>
+            {% endfor %}
+        </div>
+    </div>
+</div>

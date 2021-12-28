@@ -1,0 +1,52 @@
+{% for message in messages %}
+  <li class="list-group-item px-0 user_div" data-memberid="{{ message.member_id }}">
+    <div class="row align-items-center">
+      <div class="col-auto">
+        <!-- Avatar -->
+        <a href="#" class="avatar">
+          {% if message.member_profile_pic %}
+          <img
+            alt="Image placeholder"
+            src="{{ message.member_profile_pic }}"
+          />
+          {% else %}
+            <img
+            alt="Image placeholder"
+            src="{{ url_for('static', filename='images/avatars/dummy_user.png') }}"
+          />
+          {% endif %}
+        </a>
+      </div>
+      <div class="col ml--2">
+        <h4 class="mb-0">
+          <a href="#!" data-id="{{ message.member_id }}">{{ message.member_name }}</a>
+        </h4>
+        <span class="small">{{ message.message }}</span>
+      </div>
+      <div class="col-auto">
+        <span class="small">{{ message.time }}</span>
+      </div>
+    </div>
+  </li>
+{% endfor %}
+{% block extra_js %}
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $('.user_div').click(function(e){
+          var member_id = $(this).attr('data-memberid');
+          var data = {
+            "member_id" : member_id
+          }
+          $.ajax({  
+            type: "POST",
+            url: '/getUserMessages/',
+            data: data,
+            success:function(response){
+                //console.log('html',response)
+                $(".chats_div").html(response.html); 
+           }
+        })
+      })
+    })
+  </script>
+  {% endblock %}

@@ -1,0 +1,155 @@
+{% extends 'Employer/base.html' %}
+{% block content %}
+	<div class="main-content" id="panel">
+      <!-- Topnav -->
+      <nav class="navbar navbar-top navbar-expand navbar-light bg-white navborder-bottom">
+        <div class="container-fluid">
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="mr-sm-3">
+              <h2 class="font-weight-extra-bold mb-0">Job Details</h2>
+            </div> 
+            <div class="sidenav-toggler d-desktop d-xl-block" data-action="sidenav-unpin" data-target="#sidenav-main"
+            >
+              <div class="sidenav-toggler-inner liner-white">
+                <i class="sidenav-toggler-line"></i>
+                <i class="sidenav-toggler-line"></i>
+                <i class="sidenav-toggler-line"></i>
+              </div>
+            </div>    
+          </div>
+        </div>
+      </nav>
+      <div class="container mt-3 mb-3">
+         <div class="row">
+            <div class="col-md-12">
+              	<div class="col-md-12">
+	                <h4 class="font-weight-bold job_details_headings">Job Details</h4>
+	                <div class="alert alert-danger" id="empty_fields_error" style="display: none;" role="alert">
+	                  Please fill all the fields!!
+	               </div>
+              	</div>
+              	<div class="col-md-12 mt-3">
+                    <div class="bg-heading residencs_data_sec">
+      					<div class="container">
+			        		<div class="row">
+			          			<div class="col-md-12 mx-auto">
+            						<h1 class="text-white">{{ job_title }}</h1>
+            						<p>Loc: {{ city }}</p>
+           
+						           <div class="row">
+						            <div class="col-md-8 offset-2">
+						              <div class="dmcheading rsidency_table_datas">
+						                <div class="inn_resdent">
+						                  <h6>Type</h6>
+						                  <p class="mb-0">{{ job_type }}</p>
+						                </div>
+						                <div class="inn_resdent">
+						                  <h6>Pay Expectation</h6>
+						                  <p class="mb-0">{{ budget }}</p>
+						                </div>
+						                <div class="inn_resdent">
+						                  <h6>No of Vacancies</h6>
+						                  <p class="mb-0">{{ no_of_vacancies }}</p>
+						                </div>
+						              </div>
+						            </div>
+						          </div>
+          						</div>
+        					</div>
+      					</div>
+    				</div>
+				    <div class="resident_description_data">
+					    <div class="container">
+					      <div class="row">
+					        <div class="col-md-12 mx-auto">
+					          <div class="my-4">
+					            <h5>
+					              DESCRIPTION
+					            </h5>
+					            <textarea class="form-control" id="job_description" name="job_description" rows="3" required>
+					              {{ job_description }}
+					            </textarea>
+								<form class="residencs_forms_data">
+							      <div class="row">
+							        <div class="col-md-8">
+							    		<div class="row">
+								            <div class="col">
+								        	     <label for="start_date">Start Date</label>
+								               <input type="text" class="form-control" id="start_date" name="start_date" value="{{ start_date }}" disabled>
+								            </div>
+								            <div class="col">
+								        	     <label for="end_date">End Date</label>
+								               <input type="text" class="form-control" id="end_date" name="end_date" value="{{ end_date }}" disabled>
+								            </div>
+							          	</div>
+							      
+							        	<div class="row">
+							            	<div class="col">
+						        	    		<label for="start_time">Start Time</label>
+							              		<input type="text" class="form-control" id="start_time" name="start_time" value="{{ start_time }}" disabled>
+							            	</div>
+								            <div class="col">
+								        	    <label for="end_time">End Time</label>
+								              <input type="text" class="form-control" id="end_time" name="end_time" value="{{ end_time }}" disabled>
+								            </div>
+          								</div>
+
+                          <div class="row">
+                            <div class="col">
+                              <label for="start_time">Shift Type</label>
+                                <input type="text" class="form-control" id="shift_type" name="shift_type" value="{{ shift_type }}" disabled>
+                            </div>
+                            <div class="col">
+                              <label for="end_time">Emergency Rate</label>
+                              <input type="text" class="form-control" id="emergency_rate" name="emergency_rate" value="{{ emergency_rate }}" disabled>
+                            </div>
+                          </div>
+        							</div>
+      							  </div>
+							      <div class="row">
+							        <div class="col-md-12">
+							          <div class="text-center mt-5">
+							            <a href="#" class="btn save-to-draft-btn btn-border mt-4" id="draft_button" name="">Save to Drafts </a>
+							            <a class="btn btn-site-white btn-border mt-4" name="" id="post_job"> Post Job</a>
+							          </div>
+							        </div>
+							      </div>
+								</form>
+          					  </div>
+        					</div>
+      					  </div>
+    					</div>
+  					</div>   
+            	</div>
+          </div> <!--End of forem sectrion-->
+        </div>    
+      </div>
+    </div>
+{% endblock %}
+{% block extra_js %}
+    <script type="text/javascript">
+      $(document).ready(function(){
+        $('#post_job').click(function(){
+            $.ajax({  
+                type: "POST",
+                url: '/postJob/',
+                data: 'data',
+                success:function(response){
+                  window.location.href="/jobListing/"  
+               }
+            }) 
+        })
+
+        $('#draft_button').click(function(){
+            $.ajax({  
+                type: "POST",
+                url: '/addDraftDetails/',
+                data: 'data',
+                success:function(response){
+                  window.location.href="/jobListing/"  
+               }
+            }) 
+        })
+    })   
+    </script>
+{% endblock %}

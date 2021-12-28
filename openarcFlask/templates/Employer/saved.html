@@ -1,0 +1,158 @@
+{% extends 'Employer/base.html' %}
+{% block header %}
+    <div class="header pb-6">
+        <div class="container-fluid">
+            <div class="header-body">
+                <div class="row align-items-center py-4">
+                    <div class="col-lg-9 col-4"><h6 class="h2 d-inline-block mb-0">Saved</h6></div>
+                    <div class="col-lg-3 col-8">
+                        <div class="nav-wrapper">
+                            <ul class="nav nav-pills nav-fill" id="tabs-text" role="tablist">
+                                <li class="nav-item mb-0">
+                                    <a class="btn btn-sm btn-neutral active" id="tabs-text-1-tab" data-toggle="tab" href="#tabs-text-1" role="tab" aria-controls="tabs-text-1" aria-selected="true">Draft Jobs</a>
+                                </li>
+                                <li class="nav-item mb-0">
+                                    <a class="btn btn-sm btn-neutral" id="tabs-text-2-tab" data-toggle="tab" href="#tabs-text-2" role="tab" aria-controls="tabs-text-2" aria-selected="false">Saved Members</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    {% with messages = get_flashed_messages() %}
+                      {% if messages %}
+                        <ul class=flashes>
+                        {% for message in messages %}
+                          <li>{{ message }}</li>
+                        {% endfor %}
+                        </ul>
+                      {% endif %}
+                    {% endwith %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block content %}
+    <div class="container-fluid mt--6">
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade active show" id="tabs-text-1" role="tabpanel" aria-labelledby="tabs-text-1-tab">
+                <div class="row">
+                    {% if drafts %}
+                      <div class="col-md-12">
+                        <div class="row">
+                            {% for draft in drafts %}
+                                <div class="col-md-4">
+                                    <div class="card">
+                                        <div class="card-body p-3">
+                                            <a href="#" class="link">
+                                                <div class="overflow-hidden">
+                                                    <h3 class="float-left">{{ draft.business_name }}</h3>
+                                                    <p class="float-right text-sm text-muted"><span class="text-primary">
+                                                    {% if draft.budget %}{{ draft.budget }}{% endif  %}</span></p>
+                                                </div>
+                                                <p class="text-sm text-muted">{{ draft.company_name }}</p>
+                                                <div>
+                                                    <p class="listLocation mb-0"><span class="fa fa-map-marker mr-2"></span> <span>{{ draft.city }}</span></p>
+                                                    <!-- <p class="daysLeft mb-0"><span class="fa fa-map-marker mr-2"></span> <span>7 days left</span></p> -->
+                                                </div>
+                                                </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                      </div>
+                    {% else %}
+                        <div class="col-md-12 py-9 d-flex justify-content-around">
+                            <div class="col-md-5 text-center">
+                                <img src="/static/images/Enquirer/svg/Group 10 Copy 3.svg" alt="No Drafts" />
+                                <h4 class="mt-3">No Drafts</h4>
+                                <p class="text-muted">
+                                    No drafts has been added yet.
+                                </p>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="tab-pane fade" id="tabs-text-2" role="tabpanel" aria-labelledby="tabs-text-1-tab">
+                <div class="row">
+                    {% if saved_members %}
+                        <div class="col-md-12">
+                            <div class="mb-5">
+                                <label>All Members</label>
+                                <div class="table">
+                                    <div class="exploremembers row">
+                                        {% for member in saved_members %}
+                                        <div class="col-md-4">
+                                            <div class="solid">
+                                                <div class="left">
+                                                    <a href="#" data-toggle="modal" data-target="#modal-default">
+                                                        {% if member.profile_pic %}
+                                                            <img src="{{ member.profile_pic }}" class="img-circle user-img-circle" alt="User" />
+                                                        {% else %}
+                                                            <img src="/static/images/theme-team-4.jpg" class="img-circle user-img-circle" alt="User" />
+                                                        {% endif %} 
+                                                        <strong>{{ member.member_name }}</strong>
+                                                        <div class="ratings">
+                                                            {% if member.avg == 5 %}
+                                                                <span class="fa fa-star checked"></span> 
+                                                                <span class="fa fa-star checked"></span> 
+                                                                <span class="fa fa-star checked"></span> 
+                                                                <span class="fa fa-star checked"></span> 
+                                                                <span class="fa fa-star checked"></span>
+                                                            {% elif member.avg == 4 %}
+                                                                <span class="fa fa-star checked"></span> 
+                                                                <span class="fa fa-star checked"></span> 
+                                                                <span class="fa fa-star checked"></span> 
+                                                                <span class="fa fa-star checked"></span> 
+                                                                <span class="fa fa-star"></span>
+                                                            {% elif member.avg == 3 %}
+                                                                <span class="fa fa-star checked"></span> 
+                                                                <span class="fa fa-star checked"></span> 
+                                                                <span class="fa fa-star checked"></span> 
+                                                                <span class="fa fa-star"></span> 
+                                                                <span class="fa fa-star"></span>
+                                                            {% elif member.avg == 2 %}
+                                                                <span class="fa fa-star checked"></span> 
+                                                                <span class="fa fa-star checked"></span> 
+                                                                <span class="fa fa-star"></span> 
+                                                                <span class="fa fa-star"></span> 
+                                                                <span class="fa fa-star"></span>
+                                                            {% else %}
+                                                                <span class="fa fa-star checked"></span> 
+                                                                <span class="fa fa-star"></span> 
+                                                                <span class="fa fa-star"></span> 
+                                                                <span class="fa fa-star"></span> 
+                                                                <span class="fa fa-star"></span>
+                                                            {% endif %}
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                <div class="right my-2">
+                                                    <a href="/removeSavedMember/{{member.instance_id}}"><i class="fa fa-trash-alt" aria-hidden="true"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="col-md-12 py-9 d-flex justify-content-around">
+                            <div class="col-md-5 text-center">
+                                <img src="/static/images/Enquirer/svg/no_saved.svg" alt="No Saved Members" />
+                                <h4 class="mt-3">No Saved Members</h4>
+                                <p class="text-muted">
+                                </p>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block extra_js %}
+    
+{% endblock %}

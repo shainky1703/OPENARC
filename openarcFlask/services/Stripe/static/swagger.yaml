@@ -1,0 +1,48 @@
+openapi: 3.0.0
+info:
+  title: OPEN-ARC STRIPE APIS
+  description: Open-Arc Project Rest API'S STRIPE related
+  version: 0.1.9
+servers:
+  - url: http://127.0.0.1:5002
+    description: Local server
+  - url: http://ec2-3-15-1-100.us-east-2.compute.amazonaws.com:5002
+    description: Droplet server
+components:
+  securitySchemes:
+    bearerAuth:            # arbitrary name for the security scheme
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+paths:
+  /payEmployee/:
+    post:
+      security:
+        - bearerAuth: []
+      summary: Pay Employee for work (Employer Function)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                employee_id:
+                  type: string
+                  description: employee_id
+                job_id:
+                  type: string
+                  description: job_id 
+                amount:
+                  type: string
+                  description: Amount to be paid 
+      responses: 
+        '200':
+          description: Payment Successfull
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Server Error
+  

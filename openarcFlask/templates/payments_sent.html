@@ -1,0 +1,62 @@
+{% extends 'dashboard.html' %}
+{% block extra_css %}
+	<link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet">
+{% endblock %}
+{% block content %}
+    <div class="app-main__outer">
+        <div class="app-main__inner"> 
+        	<div class="row">
+                <div class="col-md-6 col-xl-4">
+                    <div class="card mb-3 widget-content bg-midnight-bloom">
+                        <div class="widget-content-wrapper text-white">
+                            <div class="widget-content-left">
+                                <div class="widget-heading">Payments</div>
+                                <div class="widget-subheading">Jobs Payments</div>
+                            </div>
+                            <div class="widget-content-right">
+                                <div class="widget-numbers text-white"><span>{{ total_amount }}</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="alert alert-danger" id="error_msg" style="display: none;">
+            </div>
+            <div class="alert alert-danger" id="success_msg" style="display: none;">
+              <strong>Success!</strong>Deleted Succesfully
+            </div>            
+			<div class="table-responsive" style="height:450px;">
+                <table class="align-middle mb-0 table table-borderless table-striped table-hover">
+                    <thead>
+                    <tr>
+                        <th>Employer</th>
+                        <th>Job</th>
+                        <th>Paid To</th>
+                        <th>Amount</th>
+                        <th>Status</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for payment in payments_list %}
+                    <tr>
+                        <td class="text-muted">{{ payment.paid_by }}</td>
+                        <td class="text-muted">{{ payment.business_name }}</td>
+                        <td class="text-muted">{{ payment.paid_to }}</td>
+                        <td>
+                            <div class="badge badge-warning">{{ payment.amount }}</div>
+                        </td>  
+                        <td>
+                            <div class="badge badge-warning">{{ payment.status }}</div>
+                        </td>  
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+    	</div>
+	</div>
+
+{% endblock %}
+{% block extra_js %}
+	<script type="text/javascript" src="/static/js/plan.js"></script>
+{% endblock %}

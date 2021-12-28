@@ -1,0 +1,892 @@
+openapi: 3.0.0
+info:
+  title: OPEN-ARC USER APIS
+  description: Open-Arc Project Rest API'S USERS Related
+  version: 0.1.9
+servers:
+  - url: http://127.0.0.1:5000
+    description: Local server
+  - url: http://ec2-3-15-1-100.us-east-2.compute.amazonaws.com:5000
+    description: Droplet server
+components:
+  securitySchemes:
+    bearerAuth:            # arbitrary name for the security scheme
+      type: http
+      scheme: bearer
+      bearerFormat: JWT  
+paths:
+  /signup/:
+    post:
+      summary: Member Signup.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+                device_type:
+                  type: string
+                  description : "ios/android/web"
+                device_id:
+                  type: string
+                  description: "FCM token of the device"
+                badge_number:
+                  type: string
+                expirt_date:
+                  type: string
+                  description: expiry_date of badge number in format YYYY-MM-DD
+      responses: 
+        '201':
+          description: Created
+  /forgotpassword/:
+    post:
+      summary: Forgot password for any user account
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+      responses: 
+        '200':
+          description: An email is sent to you for password reset.Please check your email
+  /login/:
+    post:
+      summary: User Login.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+      responses: 
+        '200':
+          description: Login Successfull
+  /apiChangePassword/:
+    post:
+      summary: User Change Password.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                old_password:
+                  type: string
+                new_password:
+                  type: string
+                confirm_password:
+                  type: string
+      responses: 
+        '200':
+          description: Change Successfull
+
+  /user/{id}:
+    get:
+      summary: Get a user/Member by ID.
+      parameters:
+        - in: path
+          name: id
+          type: integer
+          required: true
+          description: Numeric ID of the user/Member to get.
+      requestBody:
+        required: false
+        content:
+          application/json:
+      responses: 
+        '200':
+          description: GET Member by ID
+  /stripeDetails/:
+    post:
+      security:
+        - bearerAuth: []
+      summary: Add A connected account for Employee/Employer on Stripe (Employee/Employer Function)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                first_name:
+                  type: string
+                last_name:
+                  type: string
+                dob_day:
+                  type: string
+                dob_month:
+                  type: string
+                dob_year:
+                  type: string
+                city:
+                  type: string
+                phone:
+                  type: string
+                address_line1:
+                  type: string
+                address_line2:
+                  type: string
+                postal_code:
+                  type: string
+                state:
+                  type: string
+                sort_code:
+                  type: string
+                account_number:
+                  type : string
+                identity_document_front:
+                  type : string
+                  description: base64 string Required (data:image/jpeg;base64)
+                identity_document_back:
+                  type : string
+                  description: base64 string Required (data:image/jpeg;base64)
+                additional_identity_document_front:
+                  type : string
+                  description: base64 string Required (data:image/jpeg;base64)
+                additional_identity_document_back:
+                  type : string
+                  description: base64 string Required (data:image/jpeg;base64)
+
+      responses: 
+        '200':
+          description: Account Added Successfully
+        '201':
+          description: Account Added Successfully
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Server Error
+  /fundWallet/:
+    post:
+      security:
+        - bearerAuth: []
+      summary: Fund Wallet (Employee/Employer)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                amount:
+                  type: string
+                card_number:
+                  type: string
+                  description: 4242424242424242 
+                exp_month:
+                  type: string
+                  description: 12
+                card_year:
+                  type: string
+                  description: 2025
+                cvv:
+                  type: string
+                  description: 213
+      responses: 
+        '200':
+          description: Funded Successfully
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Server Error
+  /getWalletDetails/:
+    get:
+      security:
+        - bearerAuth: []
+      summary: Get Wallet Details.
+      requestBody:
+        required: false
+        content:
+          application/json:
+      responses: 
+        '200':
+          description: Wallet Details
+  /profile/:
+    post:
+      security:
+        - bearerAuth: []
+      summary: Create Member Profile.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                contact:
+                  type: string
+                address:  
+                  type: string  
+                drive:
+                  type: string
+                  description : Yes/No
+                city:
+                  type: string
+                postal_code:
+                  type: string
+                hourly_rate:
+                  type: string
+                profile_pic:
+                  type: string 
+                  description: Base64 string starting with data:image/jpeg;base64
+                cv_string:
+                  type: string 
+                  description: Base64 string of document
+                document_name:
+                  type: string
+                about:
+                  type: string
+                unavailable_dates:
+                  type: array
+                  description : ["2021-04-15","2021-04-25"]
+      responses: 
+        '200':
+          description: Profile Added Successfully
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Server Error
+    put:
+      security:
+        - bearerAuth: []
+      summary: Update a Member profile.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                contact:
+                  type: string
+                address:  
+                  type: string  
+                drive:
+                  type: string
+                  description : Yes/No
+                city:
+                  type: string
+                postal_code:
+                  type: string
+                hourly_rate:
+                  type: string
+                profile_pic:
+                  type: string 
+                  description: Base64 string starting with data:image/jpeg;base64
+                cv_string:
+                  type: string 
+                  description: Base64 string of document
+                document_name:
+                  type: string
+                about:
+                  type: string
+                unavailable_dates:
+                  type: array
+                  description : ["2021-04-15","2021-04-25"]
+                badge_number:
+                  type: string
+      responses: 
+        '200':
+          description: Profile Update Successfully
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Server Error
+  /pinLocation/:
+    put:
+      security:
+        - bearerAuth: []
+      summary: Pin Member Location.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                latitude:
+                  type: string
+                longitude:
+                  type: string
+      responses: 
+        '200':
+          description: Memebr pin location
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Server Error
+  /memberProfile:
+    get:
+      security:
+        - bearerAuth: []
+      summary: Get Member profile.
+      requestBody:
+        required: false
+        content:
+          application/json:
+      responses: 
+        '200':
+          description: GET Member Profile
+  /enquirerSignup/:
+    post:
+      summary: Enquirer Signup.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                organisation_name:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+                device_type:
+                  type: string
+                  description : "ios/android/web"
+                device_id:
+                  type: string
+                  description: "FCM token of the device"
+      responses: 
+        '201':
+          description: An email sent to email address for account activation
+  /enquirerProfile/:
+    post:
+      security:
+        - bearerAuth: []
+      summary: Create Enquirer Profile.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                about:
+                  type: string
+                  description: About Company
+                registration_number:
+                  type: string
+                acs_reference_number:
+                  type: string
+                company_logo:
+                  type: string
+                  description: Base64 string starting with data:image/jpeg;base64
+                contact:
+                  type: string
+                company_contact:
+                  type: string
+                address:
+                  type: string
+                city:
+                  type: string
+                postal_code:
+                  type: string
+      responses: 
+        '200':
+          description: Profile Created Successfully
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Server Error
+    get:
+      security:
+        - bearerAuth: []
+      summary: Get Enquirer profile details.
+      requestBody:
+        required: false
+        content:
+          application/json:
+      responses: 
+        '200':
+          description: Enquirer Profile details
+    put:
+      security:
+        - bearerAuth: []
+      summary: Update a Enquirer profile.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                about:
+                  type: string
+                  description: About Company
+                registration_number:
+                  type: string
+                acs_reference_number:
+                  type: string
+                company_logo:
+                  type: string
+                  description: Base64 string starting with data:image/jpeg;base64
+                contact:
+                  type: string
+                company_contact:
+                  type: string
+                address:
+                  type: string
+                city:
+                  type: string
+                postal_code:
+                  type: string
+      responses: 
+        '200':
+          description: Profile Updated Successfully
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Server Error
+  /exploreMembers/:
+    get:
+      security:
+        - bearerAuth: []
+      summary: Explore Members Page
+      requestBody:
+        required: false
+        content:
+          application/json:
+      responses: 
+        '200':
+          description: Explore Members Page
+  /cityFilter/:
+    post:
+      security:
+        - bearerAuth: []
+      summary: Filter Members according to city
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                city:
+                  type: string
+                  description: single name or multiple city name seperaed by comma
+      responses: 
+        '200':
+          description: Filtered Members
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Server Error
+    /ratingFilter/:
+      post:
+        security:
+          - bearerAuth: []
+        summary: Filter Members according to rating
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  city:
+                    type: string
+      responses: 
+        '200':
+          description: Filtered Members
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Server Error
+  /hourlyRateFilter/:
+    get:
+      security:
+        - bearerAuth: []
+      summary: Get Members filtered on the basis of hourly rate
+      requestBody:
+        required: false
+        content:
+          application/json:
+      responses: 
+        '200':
+          description: Members filtered on the basis of hourly rate
+  /jobListings/:
+    get:
+      security:
+        - bearerAuth: []
+      summary: Get Employer Jobs
+      requestBody:
+        required: false
+        content:
+          application/json:
+      responses: 
+        '200':
+          description: Jobs List
+  /activeProjects/:
+    get:
+      security:
+        - bearerAuth: []
+      summary: Get All Active Projects
+      requestBody:
+        required: false
+        content:
+          application/json:
+      responses: 
+        '200':
+          description: Active Jobs List
+  /activeJobDetails/{job_id}:
+    get:
+      security:
+        - bearerAuth: []
+      summary: Get Active Job Details with hired Members
+      parameters:
+        - in: path
+          name: job_id
+          type: integer
+          required: true
+          description: Numeric ID of the job to get.
+      requestBody:
+        required: false
+        content:
+          application/json:
+      responses: 
+        '200':
+          description: GET Active Job Details
+  /activeMemberDetails/{application_id}:
+    get:
+      security:
+        - bearerAuth: []
+      summary: Get Hired Member Details
+      parameters:
+        - in: path
+          name: application_id
+          type: integer
+          required: true
+          description: Numeric ID of the application to get.(from previous api)
+      requestBody:
+        required: false
+        content:
+          application/json:
+      responses: 
+        '200':
+          description: GET Hired Member  Details
+  /postedJobDetails/{job_id}:
+    get:
+      security:
+        - bearerAuth: []
+      summary: Get Posted Job Details
+      parameters:
+        - in: path
+          name: job_id
+          type: integer
+          required: true
+          description: Numeric ID of the job to get.
+      requestBody:
+        required: false
+        content:
+          application/json:
+      responses: 
+        '200':
+          description: GET Job Details
+  /applicationDetails/{application_id}:
+    get:
+      security:
+        - bearerAuth: []
+      summary: Get Application Details with offer rate and message
+      parameters:
+        - in: path
+          name: application_id
+          type: integer
+          required: true
+          description: Numeric ID of the job to get.
+      requestBody:
+        required: false
+        content:
+          application/json:
+      responses: 
+        '200':
+          description: GET Application Details
+  /viewProfile/{member_id}:
+    get:
+      security:
+        - bearerAuth: []
+      summary: Get member profile details
+      parameters:
+        - in: path
+          name: member_id
+          type: integer
+          required: true
+          description: Numeric ID of the member to view profile.
+      requestBody:
+        required: false
+        content:
+          application/json:
+      responses: 
+        '200':
+          description: GET Member Details
+  /pastProjects/:
+    get:
+      security:
+        - bearerAuth: []
+      summary: Get All Past Projects
+      requestBody:
+        required: false
+        content:
+          application/json:
+      responses: 
+        '200':
+          description: Past Jobs List
+  /pastProjectsDetails/{job_id}:
+    get:
+      security:
+        - bearerAuth: []
+      summary: Get Details for completed project with hired members
+      parameters:
+        - in: path
+          name: job_id
+          type: integer
+          required: true
+          description: Numeric ID of the job to get details.
+      requestBody:
+        required: false
+        content:
+          application/json:
+      responses: 
+        '200':
+          description: GET Completed Job Details
+  /memberWorkDetails/{application_id}:
+    get:
+      security:
+        - bearerAuth: []
+      summary: Get Work Details for completed project by a member
+      parameters:
+        - in: path
+          name: application_id
+          type: integer
+          required: true
+          description: Numeric ID of the application to get details.
+      requestBody:
+        required: false
+        content:
+          application/json:
+      responses: 
+        '200':
+          description: Get Work Details for completed project by a member
+  /finances/:
+    get:
+      security:
+        - bearerAuth: []
+      summary: Get All Transactions Details
+      requestBody:
+        required: false
+        content:
+          application/json:
+      responses: 
+        '200':
+          description: Get All Transactions Details
+  /invoiceDetails/{transaction_id}:
+    get:
+      security:
+        - bearerAuth: []
+      summary: Get invoice details
+      parameters:
+        - in: path
+          name: transaction_id
+          type: integer
+          required: true
+          description: Numeric ID of the transaction to get details.(from previous api)
+      requestBody:
+        required: false
+        content:
+          application/json:
+      responses: 
+        '200':
+          description: Get invoice details
+  /savedDetails/:
+    get:
+      security:
+        - bearerAuth: []
+      summary: Get all saved members and drafts details
+      requestBody:
+        required: false
+        content:
+          application/json:
+      responses: 
+        '200':
+          description: Get all saved members and drafts details
+  /removeSavedMember/{save_instance_id}:
+    delete:
+      security:
+        - bearerAuth: []
+      summary: Remove saved member from saved list
+      parameters:
+        - in: path
+          name: save_instance_id
+          type: integer
+          required: true
+          description: Numeric ID of the saved instance from previous api
+      requestBody:
+        required: false
+        content:
+          application/json:
+      responses: 
+        '200':
+          description: Remove saved member from saved list
+  /card/:
+    post:
+      security:
+        - bearerAuth: []
+      summary: Add Card.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                card_number:
+                  type: string
+                name_on_card:
+                  type: string
+                expiry_date:
+                  type: string
+                card_type:
+                  type: string
+                cvv:
+                  type: string
+      responses: 
+        '200':
+          description: Review Created Successfully
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Server Error
+    get:
+      security:
+        - bearerAuth: []
+      summary: Get saved cards.
+      requestBody:
+        required: false
+        content:
+          application/json:
+      responses: 
+        '200':
+          description: GET Saved Cards
+  /getGuardsList:
+    get:
+      security:
+        - bearerAuth: []
+      summary: Get Guards List to Invite for a Job.
+      requestBody:
+        required: false
+        content:
+          application/json:
+      responses: 
+        '200':
+          description: Guards Lists
+  /memberLocation/{member_id}:
+    get:
+      security:
+        - bearerAuth: []
+      summary: Get Member Location.
+      parameters:
+        - in: path
+          name: member_id
+          type: integer
+          required: true
+          description: Numeric ID of the Member to get.
+      requestBody:
+        required: false
+        content:
+          application/json:
+      responses: 
+        '200':
+          description: GET Member Location by ID
+  /siteDetails/{job_id}:
+    get:
+      security:
+        - bearerAuth: []
+      summary: Get Site Details for active job.
+      parameters:
+        - in: path
+          name: job_id
+          type: integer
+          required: true
+          description: Job ID of the Active Job
+      requestBody:
+        required: false
+        content:
+          application/json:
+      responses: 
+        '200':
+          description: GET On Site Details by Job ID
+  /review/:
+    post:
+      security:
+        - bearerAuth: []
+      summary: Create A Review.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                review_text:
+                  type: string
+                stars:
+                  type: string
+                  description: 1/2/3/4/5
+                member_id:
+                  type: string
+                application_id:
+                  type: string
+      responses: 
+        '200':
+          description: Review Created Successfully
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Server Error
+  
+
+
+
+
+

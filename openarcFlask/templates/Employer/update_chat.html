@@ -1,0 +1,140 @@
+<div class="card">
+      <div class="card-body">
+        <img src="/static/images/loader.gif" style="display: none;" id="loader">
+        <div class="row align-items-center">
+          <div class="col-auto">
+            <!-- Avatar -->
+            <a href="#" class="avatar">
+              {% if all_messages %}
+                {% if all_messages.0.member_profile_pic %}
+                  <img
+                    alt="Image placeholder"
+                    src="{{ all_messages.0.member_profile_pic }}"
+                  />
+                {% else %}
+                  <img
+                    alt="Image placeholder"
+                    src="{{ url_for('static', filename='images/avatars/dummy_user.png') }}"
+                  />
+                {% endif %}
+              {% else %}
+                <img
+                    alt="Image placeholder"
+                    src="{{ url_for('static', filename='images/avatars/dummy_user.png') }}"
+                  />
+              {% endif %}
+            </a>
+          </div>
+          <div class="col ml--2">
+            {% if all_messages %}
+              <h4 class="mb-0">
+                <a href="#!">{{ all_messages.0.member_name }}</a>
+              </h4>
+              <span class="small">{{ all_messages.0.message }}......</span>
+            {% endif %}
+          </div>
+          {% if all_messages %}
+            <input type="hidden" id="hidden_id_div" value="{{ all_messages.0.member_id}}">
+          {% endif %}
+          <!-- <div class="col-auto">
+            <a href="#" class="mr-3">
+              <span class="fa fa-search"></span>
+            </a>
+            <a href="#" class="mr-3">
+              <span class="fa fa-paperclip"></span>
+            </a>
+            <a href="#" class="mr-3">
+              <span class="fa fa-ellipsis-v"></span>
+            </a>
+          </div>
+        </div> -->
+      </div>
+      <div class="chatView px-4 py-3">
+        {% for message in all_messages %}
+            {% if message.sent_or_received == 'sent' %}
+              <div class="msged">
+                <span>{{ message.message }}</span>
+              </div>
+            {% else %}
+              <div class="msged sent">
+                <span>{{ message.message }}</span>
+              </div>
+            {% endif %}
+        {% endfor %}
+      </div>
+      <div class="chatinput">
+        <div class="row">
+          <div class="col-9">
+            <div class="p-4">
+              <input
+                type="text"
+                class="form-control form-control-flush"
+                placeholder="Type a message" id="text"
+              />
+            </div>
+          </div>
+          <div class="col-3 text-right">
+            <div class="mr-3 mt-4">
+              <button type="button" class="btn btn-outline-secondary" id="send_message_button">
+                <span class="fa fa-paper-plane"></span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+</div>
+{% block extra_js %}
+    <script type="text/javascript">
+      
+        $('#text').keypress(function(e) {
+        console.log('enter')
+        var code = e.keyCode || e.which;
+        if (code == 13) {
+            var text = $('#text').val();
+            console.log('val',text)
+            $('#text').val('');
+            if (text == '' ){
+              return false;
+            }
+            var member_id = $('#hidden_id_div').val();
+            data = {
+              "member_id" : member_id,
+              "message" : text
+            }
+            $.ajax({  
+                type: "POST",
+                url: '/sendMessage/',
+                data: data,
+                success:function(response){
+                    //console.log('html',response)
+                    $(".chats_div").html(response.html); 
+               }
+            }) 
+        }
+    });
+
+
+    $('#send_message_button').click(function(){
+      var text = $('#text').val();
+      if(text == ''){
+        return false;
+      }else{
+          var member_id = $('#hidden_id_div').val();
+          data = {
+            "member_id" : member_id,
+            "message" : text
+          }
+          $.ajax({  
+              type: "POST",
+              url: '/sendMessage/',
+              data: data,
+              success:function(response){
+                  //console.log('html',response)
+                  $(".chats_div").html(response.html); 
+             }
+          }) 
+      }
+    })
+      
+    </script>
+  {% endblock %}

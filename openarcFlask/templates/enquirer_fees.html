@@ -1,0 +1,60 @@
+{% extends 'dashboard.html' %}
+{% block extra_css %}
+	<link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet">
+{% endblock %}
+{% block content %}
+    <div class="app-main__outer">
+        <div class="app-main__inner">
+            	<ul class="body-tabs body-tabs-layout tabs-animated body-tabs-animated nav">
+                    <li class="nav-item">
+                        <a role="tab" class="nav-link active" id="tab-0" data-toggle="tab" href="#tab-content-0">
+                        <span>Enquirer Fee Parameters</span>
+                        </a>
+                    </li>
+                </ul>
+                <div class="col-lg-12 login-key">
+                    {% for mesg in get_flashed_messages() %}
+                      <h3>{{ mesg }}</h3>
+                    {% endfor %}
+                </div>
+                <div class="tab-content">
+                    <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
+                        <div class="main-card mb-3 card">
+                            <div class="card-body">
+                                <form class="" method="POST">
+                                    <div class="form-row">
+                                        <div class="col-md-12">
+                                            <div class="position-relative form-group"><label for="exampleEmail11" class="">AOS Standard Addition Per Hour</label><input name="aos_standard_addition_per_hour" id="aos_standard_addition_per_hour" placeholder="AOS Standard Addition Per Hour" type="text" class="form-control" value="{{ employer_fee.aos_standard_addition_per_hour }}"></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="col-md-12">
+                                            <div class="position-relative form-group"><label for="exampleEmail11" class="">AOS One Off Misc Payments</label><input name="aos_one_off_misc_payment" id="aos_one_off_misc_payment" placeholder="AOS One Off Misc Payments" type="text" class="form-control" value="{{ employer_fee.aos_one_off_misc_payment }}"></div>
+                                        </div> 
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="col-md-12">
+                                            <div class="position-relative form-group"><label for="exampleEmail11" class="">Bidding Fees Per Hour (Pence)</label><input name="bidding_fees_per_hour_pence" id="bidding_fees_per_hour_pence" placeholder="Bidding Fees Per Hour (Pence)" type="text" class="form-control" value="{{ employer_fee.bidding_fees_per_hour_pence }}"></div>
+                                        </div> 
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="col-md-12">
+                                            <div class="position-relative form-group"><label for="exampleEmail11" class="">Admin Per Hour Charges(Pounds)</label><input name="admin_charges_per_hour_pounds" id="admin_charges_per_hour_pounds" placeholder="Admin Per Hour Charges(Pounds)" type="text" class="form-control" value="{{ employer_fee.admin_charges_per_hour_pounds }}"></div>
+                                        </div> 
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="col-md-12">
+                                            <div class="position-relative form-group"><label for="exampleEmail11" class="">VAT</label><input name="vat" id="vat" placeholder="vat percentage" type="text" class="form-control" value="{{ employer_fee.vat }}"></div>
+                                        </div> 
+                                    </div>
+                                    <button type="submit" id="update_button" class="btn btn-primary">Update</button>
+                                </form>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+    	</div>
+	</div>
+
+{% endblock %}

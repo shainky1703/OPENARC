@@ -1,0 +1,111 @@
+{% extends 'dashboard.html' %}
+{% block extra_css %}
+	<link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet">
+{% endblock %}
+{% block content %}
+        <div class="app-main__outer table_data">
+            <div class="app-main__inner"> 
+            	<div class="row">
+                    <div class="col-md-6 col-xl-4">
+                        <div class="card mb-3 widget-content bg-midnight-bloom">
+                            <div class="widget-content-wrapper text-white">
+                                <div class="widget-content-left">
+                                    <div class="widget-heading">Revenue</div>
+                                    <div class="widget-subheading">Revenue Generated</div>
+                                </div>
+                                <div class="widget-content-right">
+                                    <div class="widget-numbers text-white"><span>{{ total_amount }}</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="col-md-6 col-xl-4">
+                        <div class="card mb-3 widget-content bg-midnight-bloom">
+                            <div class="widget-content-wrapper text-white">
+                                <div class="widget-content-left">
+                                    <div class="widget-heading">Payments</div>
+                                    <div class="widget-subheading">Search Month</div>
+                                </div>
+                                <div class="widget-content-right">
+                                    <div class="widget-numbers text-white">
+                                        <select class="form-control" id="pay_month">
+                                            <option value="01">January</option>
+                                            <option value="02">February</option>
+                                            <option value="03">March</option>
+                                            <option value="04">April</option>
+                                            <option value="05">May</option>
+                                            <option value="06">June</option>
+                                            <option value="07">July</option>
+                                            <option value="08">August</option>
+                                            <option value="09">September</option>
+                                            <option value="10">October</option>
+                                            <option value="11">November</option>
+                                            <option value="12">December</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+                </div>     
+                <input type="hidden" value="{{ revenue_list}}" id="initial_data">
+        			<div class="table-responsive" style="height:450px;">
+                        <table class="align-middle mb-0 table table-borderless table-striped table-hover">
+                            <thead>
+                            <tr>
+                                <th>User</th>
+                                <th>User Type</th>
+                                <th>Reference</th>
+        		                <th>Paid On</th>
+                                <th>Payment Month</th>
+        		                <th>Amount</th>
+                                <th>Job</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for payment in revenue_list %}
+                            <tr>
+                                <td class="text-muted">{{ payment.user }}</td>
+                                <td class="text-muted">
+                                    {% if payment.user_type == 'member' %}
+                                        Guard
+                                    {% else %}
+                                        Company
+                                    {% endif %}
+                                </td>
+                                <td class="text-muted">{{ payment.reference }}</td>
+                                <td class="text-muted">{{ payment.payment_date }}</td>
+                                <td class="text-muted">{{ payment.month }}</td>
+                                <td>
+                                    <div class="badge badge-warning">{{ payment.amount }}</div>
+                                </td> 
+                                <td class="text-muted">{{ payment.business_name }}</td>  
+                            </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+        	   </div>
+            </div>
+
+{% endblock %}
+{% block extra_js %}
+	<script type="text/javascript" src="/static/js/plan.js"></script>
+    <!-- <script type="text/javascript">
+        $('#pay_month').change(function(){
+            var month = $('#pay_month').val();
+            var data = {
+              'month' : month
+            }
+            $.ajax({     
+                type: "POST",
+                url: '/filterRevenue/',
+                data: data,
+                success:function(response){
+                    //console.log('html',response)
+                    $(".table_data").html(response.html); 
+                }
+            })
+        })
+    </script> -->
+{% endblock %}

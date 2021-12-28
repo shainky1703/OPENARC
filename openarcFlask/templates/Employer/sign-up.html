@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="Security Agents/Company Linking App" />
+    <meta name="author" content="" />
+    <title>Arc Open Space</title>
+    <!-- Canonical SEO -->
+    <link rel="canonical" href="#" />
+    <!--  Social tags      -->
+    <meta name="keywords" content="" />
+    <meta name="description" content="Security Agents/Company Linking App" />
+    <!-- Schema.org markup for Google+ -->
+    <meta itemprop="name" content="Arc Open Space" />
+    <meta
+      itemprop="description"
+      content="Security Agents/Company Linking App"
+    />
+    <meta itemprop="image" content="" />
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="product" />
+    <meta name="twitter:site" content="@..." />
+    <meta
+      name="twitter:title"
+      content="Arc Open Space - Security Agents/Company Linking App"
+    />
+    <meta
+      name="twitter:description"
+      content="Security Agents/Company Linking App"
+    />
+    <meta name="twitter:creator" content="@..." />
+    <meta name="twitter:image" content="" />
+
+    <!-- Favicon -->
+    <link rel="icon" href="/static/favicons/fevicon-arcOpen.jpg" type="image/png" />
+    <!-- Fonts -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700"
+    />
+    <!-- Icons -->
+   <link rel="stylesheet" href="{{ url_for('static', filename='css/css-nucleo.css') }}"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/css-all.min.css') }}" type="text/css" />
+    <!-- Argon CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/css-argon.min.css') }}" type="text/css" />
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/custom.css') }}" type="text/css" />
+  </head>
+  <body class="bg-white">
+    <!-- Main content -->
+    <div class="">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-6 px-0">
+            <div class="text-center lf-bg-blue">
+              <div class="sp-width">
+                <div>
+                  <h1 class="mb-0 text-white">
+                    <img src="/static/images/Enquirer/Arc-Open-Space-logo.png" class="navbar-brand-img" alt="Arc Open Space">
+                  </h1>
+                  <p class="small"></p>
+                </div>
+                <p>
+                  Arc Open Space is a self-service network recruitment agency built for Certified Security Personnel and businesses that offer Security cover for; WAREHOUSE, INDUSTRIAL COMPLEXES, RETAIL, CLUBS, CORPORATE EXPERIENCES.
+                </p>
+                <a href="/loginEnquirer/" class="btn btn-site-white mt-4">Login</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 px-0">
+            <div class="lf-bg-blue-light">
+              <div class="sp-width signup-wd">
+                <form role="form" method="POST" action="/signupEnquirer/">
+                  <div>
+                    {% with messages = get_flashed_messages() %}
+                      {% if messages %}
+                        <ul class=flashes>
+                        {% for message in messages %}
+                          <li>{{ message }}</li>
+                        {% endfor %}
+                        </ul>
+                      {% endif %}
+                    {% endwith %}
+                    <h1 class="mb-0 font-weight-bold">Sign Up</h1>
+                  </div>
+                  <div class="my-3">
+                    <div class="form-group mb-3">
+                      <div
+                        class="input-group input-group-merge input-group-alternative"
+                      >
+                        <div class="input-group-prepend">
+                          <span class="input-group-text"
+                            ><i class="fa fa-user"></i
+                          ></span>
+                        </div>
+                        <input class="form-control" name="full_name" placeholder="Organisation name" required/>
+                      </div>
+                    </div>
+
+                    <div class="form-group mb-3">
+                      <div
+                        class="input-group input-group-merge input-group-alternative"
+                      >
+                        <div class="input-group-prepend">
+                          <span class="input-group-text"
+                            ><i class="fa fa-envelope"></i
+                          ></span>
+                        </div>
+                        <input
+                          type="email"
+                          class="form-control"
+                          name="email"
+                          placeholder="Email"
+                          required
+                        />
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <div class="input-group input-group-merge input-group-alternative">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text"
+                            ><i class="fa fa-key"></i></span>
+                        </div>
+                        <input
+                          class="form-control"
+                          placeholder="Password"
+                          type="password"
+                          name="password"
+                          id="password-field"
+                          required
+                        />
+                        <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"
+                        style="float: right;padding-top: 16px;background-color: white;height: 49px;"></span>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div
+                        class="input-group input-group-merge input-group-alternative"
+                      >
+                        <div class="input-group-prepend">
+                          <span class="input-group-text"
+                            ><i class="fa fa-key"></i
+                          ></span>
+                        </div>
+
+                        <input
+                          class="form-control"
+                          placeholder="Confirm Password"
+                          type="password"
+                          name="confirm_password"
+                          id="confirm_password"
+                          required
+                        />
+                        <span toggle="#confirm_password" class="fa fa-fw fa-eye field-icon toggle-password"
+                        style="float: right;padding-top: 16px;background-color: white;height: 49px;"></span>
+                      </div>
+                    </div>
+                    <div class="form-check">
+                        <input
+                          class="form-check-input"
+                          type="checkbox"
+                          name="subscribe_check"
+                          id= "subscribe_check"
+                        />Yes! Send me genuinely useful emails every now and then to help me get the most out of ArcOpenSpace.
+                    </div>
+                    <div class="form-check">
+                        <input
+                          class="form-check-input"
+                          type="checkbox"
+                          name="accept_terms"
+                          id= "accept_terms"
+                          required
+                        />Yes! I understand and agree to the ArcOpenSpace <a href="https://arcopenspace.com/terms-services">Terms of Service</a> and <a href="https://arcopenspace.com/privacy-policy">
+                          Privacy Policy<a/>
+                    </div>
+                  <button type="submit" class="btn btn-site mt-4">
+                    Sign Up
+                  </button>
+                </form>
+                <p></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Core -->
+    <script src="{{ url_for('static', filename='js/dist-jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/js-bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/js-cookie-js.cookie.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery.scrollbar-jquery.scrollbar.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/dist-jquery-scrollLock.min.js') }}"></script>
+    <!-- Argon JS -->
+    <script src="{{ url_for('static', filename='js/js-argon.min.js') }}"></script>
+    <!-- Demo JS - remove this in your project -->
+    <script src="{{ url_for('static', filename='js/js-demo.min.js') }}"></script>
+    <script type="text/javascript">
+      $(".toggle-password").click(function() {
+        $(this).toggleClass("fa-eye fa-eye-slash");
+        var input = $($(this).attr("toggle"));
+        if (input.attr("type") == "password") {
+          input.attr("type", "text");
+        } else {
+          input.attr("type", "password");
+        }
+      });
+    </script>
+  </body>
+</html>

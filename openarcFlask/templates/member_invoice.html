@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+th, td {
+  padding: 5px;
+  text-align: left;
+}
+</style>
+</head>
+<body>
+
+
+<h2>Invoice Details:</h2>
+
+<table style="width:100%">
+  <tr>
+    <th>Agreed_Pay_Per_Hour:</th>
+    <td>{{ json_data.Agreed_Pay_Per_Hour }}</td>
+  </tr>
+  <tr>
+    <th>AOS_Standard_Addition_Per_Hour:</th>
+    <td>{{ json_data.AOS_Standard_Addition_Per_Hour }}</td>
+  </tr>
+  <tr>
+    <th>AOS_One_Off_Misc_Payment:</th>
+    <td>{{ json_data.AOS_One_Off_Misc_Payment }}</td>
+  </tr>
+  <tr>
+    <th>Total_Worked_Hours:</th>
+    <td>{{ json_data.Total_Worked_Hours }}</td>
+  </tr>
+  <tr>
+    <th>Total_Pay:</th>
+    <td>{{ json_data.Total_Pay }}</td>
+  </tr>
+  <tr>
+    <th>Admin_Charges:</th>
+    <td>{{ json_data.Admin_Charges }}</td>
+  </tr>
+  <tr>
+    <th>AOS_Account_Refund:</th>
+    <td>{{ json_data.AOS_Account_Refund }}</td>
+  </tr>
+  <tr>
+    <th>Net_Payable:</th>
+    <td>{{ json_data.Net_Payable }}</td>
+  </tr>
+  <tr>
+    <th>Company_name:</th>
+    <td>{{ json_data.company_name }}</td>
+  </tr>
+  <tr>
+    <th>Paid_to:</th>
+    <td>{{ json_data.paid_to }}</td>
+  </tr>
+</table>
+
+</body>
+</html>

@@ -1,0 +1,50 @@
+<html>
+    <head>
+        <title>Flask-SocketIO-Chat: {{ room }}</title>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-1.4.2.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
+        <script type="text/javascript" charset="utf-8">
+            var socket;
+            $(document).ready(function(){
+                console.log('domain',document.domain)
+                console.log('port',location.port)
+                // socket = io.connect('http://' + document.domain + ':' + location.port + '/chat');
+                socket = io.connect("http://ffa2dec8208f.ngrok.io");
+                console.log('socket--',socket)
+                var count = 0
+                console.log('count outside',count)
+                socket.on('connect', function() {
+                    count += 1
+                    console.log('connected---',count)
+                    if(count < 1){
+                        socket.emit('connect', {});
+                    }
+                })
+                socket.on('status', function(data) {
+                    $('#chat').val($('#chat').val() + '<' + data.msg + '>\n');
+                    $('#chat').scrollTop($('#chat')[0].scrollHeight);
+                });
+                socket.on('message', function(data) {
+                    $('#chat').val($('#chat').val() + data.msg + '\n');
+                    $('#chat').scrollTop($('#chat')[0].scrollHeight);
+                });
+                $('#text').keypress(function(e) {
+                    console.log('enter')
+                    var code = e.keyCode || e.which;
+                    if (code == 13) {
+                        text = $('#text').val();
+                        console.log('val',text)
+                        $('#text').val('');
+                        socket.emit('text', {msg: text});
+                    }
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <h1>Flask-SocketIO-Chat: {{ room }}</h1>
+        <textarea id="chat" cols="80" rows="20"></textarea><br><br>
+        <input id="text" size="80" placeholder="Enter your message here"><br><br>
+        <a href="#" onclick="leave_room();">Leave this room</a>
+    </body>
+</html>

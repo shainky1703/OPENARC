@@ -1,0 +1,620 @@
+openapi: 3.0.0
+info:
+  title: OPEN-ARC JOBS APIS
+  description: Open-Arc Project Rest API'S JOBS related
+  version: 0.1.9
+servers:
+  - url: http://127.0.0.1:5001
+    description: Local server
+  - url: http://ec2-3-15-1-100.us-east-2.compute.amazonaws.com:5001
+    description: Droplet server
+components:
+  securitySchemes:
+    bearerAuth:            # arbitrary name for the security scheme
+      type: http
+      scheme: bearer
+      bearerFormat: JWT 
+paths:
+  /job/:
+    post:
+      security:
+        - bearerAuth: []
+      summary: Create Job (Employer/Enquirer Function)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                business_name:
+                  type: string
+                  description: Name of business where security is required
+                job_category:
+                  type: string
+                job_type:
+                  type: string
+                  description: Contract/Temporary
+                budget:
+                  type: string
+                emergency_rate:
+                  type: string
+                  description: emergency_rate
+                shift_type:
+                  type: string
+                  description: Night/Day
+                job_description:
+                  type: string
+                address:
+                  type: string
+                city:
+                  type: string
+                vacancies:
+                  type: string
+                  description: number of people required for job
+                shift_start_date:
+                  type: string
+                  description: start_date of job example "2020-09-23"
+                shift_end_date:
+                  type: string
+                  description: end_date of job example "2020-09-25"
+                shift_start_time:
+                  type: string
+                  description: start_time of job example "09:00AM"
+                shift_end_time:
+                  type: string
+                  description: end_time of job example "05:00PM"
+                is_draft:
+                  type: string
+                  description : True if saving a draft else False
+                contract: 
+                  type: string
+                  description : text/ base 64 string of  file
+                file_name:
+                  type: string
+                  description : file name if contract is to be uploaded
+      responses: 
+        '200':
+          description: Job  Added Successfully
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Server Error
+  /inviteGuard:
+    post:
+      security:
+        - bearerAuth: []
+      summary: Send Invite for a Job (Employer Function)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                job_id:
+                  type: string
+                guard_id:
+                  type: string
+      responses: 
+        '200':
+          description: Invite Sent Successfully
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Server Error
+  /allEmployerJobs/:
+    get:
+      security:
+        - bearerAuth: []
+      summary: Get an Employer Jobs.
+      requestBody:
+        required: false
+        content:
+          application/json:
+      responses: 
+        '200':
+          description: View All Jobs of an Employer
+  /job/{id}:
+    get:
+      summary: Get Job Details by ID 
+      parameters:
+        - in: path
+          name: id
+          type: integer
+          required: true
+          description: Numeric ID of the job to get.
+      requestBody:
+        required: false
+        content:
+          application/json:
+      responses: 
+        '200':
+          description: GET Job by ID
+  /browseJobs:
+    get:
+      security:
+        - bearerAuth: []
+      summary: Get Broswe page Jobs.
+      requestBody:
+        required: false
+        content:
+          application/json:
+      responses: 
+        '200':
+          description: Get Broswe page Jobs
+  /saveJob/:
+    post:
+      security:
+        - bearerAuth: []
+      summary: Save A Job (Member Function)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                job_id:
+                  type: string
+      responses: 
+        '200':
+          description: Job Saved Successfully Successfully
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Server Error
+  /cityFilterJobs/:
+    post:
+      summary: Get Jobs filtered by City .
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                city:
+                  type: string
+                  description: "city1,city2"
+      responses: 
+        '200':
+          description: GET Jobs filtered by city
+  /filterJobs/:
+    get:
+      security:
+        - bearerAuth: []
+      summary: Get Filtered Jobs.
+      requestBody:
+        required: false
+        content:
+          application/json:
+      responses: 
+        '200':
+          description: Get Filtered Jobs
+  /getInvites/:
+    get:
+      security:
+        - bearerAuth: []
+      summary: Get All Invites for the Member.
+      requestBody:
+        required: false
+        content:
+          application/json:
+      responses: 
+        '200':
+          description: Get All Invites for the Member.
+  /savedJobs/:
+    get:
+      security:
+        - bearerAuth: []
+      summary: Get All Jobs Saved by Member.
+      requestBody:
+        required: false
+        content:
+          application/json:
+      responses: 
+        '200':
+          description: Get All Jobs Saved by Member.
+  /removeSavedJob/{save_instance_id}:
+    delete:
+      security:
+        - bearerAuth: []
+      summary: Remove saved job from saved list
+      parameters:
+        - in: path
+          name: save_instance_id
+          type: integer
+          required: true
+          description: Numeric ID of the saved instance from previous api
+      requestBody:
+        required: false
+        content:
+          application/json:
+      responses: 
+        '200':
+          description: Remove saved job from saved list
+  /applyJob/:
+    post:
+      security:
+        - bearerAuth: []
+      summary: Apply for a job (Member Function)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                pay_expected:
+                  type: string
+                message:
+                  type: string
+                job_id:
+                  type: string
+                member_status:
+                  type: string
+                  description: Accept/Interested/Decline
+      responses: 
+        '200':
+          description: Applied Successfully
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Server Error
+  /rejectApplication/{application_id}:
+    post:
+      security:
+        - bearerAuth: []
+      summary: Reject an application for a job (Employer/Enquirer Function)
+      parameters:
+        - in: path
+          name: application_id
+          type: integer
+          required: true
+          description: Numeric ID of the application to reject application
+      requestBody:
+        required: false
+        content:
+          application/json:
+      responses: 
+        '200':
+          description: Rejected Successfully
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Server Error
+  /fundDetails/{application_id}/:
+    get:
+      security:
+        - bearerAuth: []
+      summary: Get Fund details for an application
+      parameters:
+        - in: path
+          name: application_id
+          type: integer
+          required: true
+          description: Numeric ID of the application to be funded
+      requestBody:
+        required: false
+        content:
+          application/json:
+      responses: 
+        '200':
+          description: Fund Details
+  /cardJobFunding/:
+    post:
+      security:
+        - bearerAuth: []
+      summary: Approve Job Application and fund amount for it  using card (Employer Function)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                application_id:
+                  type: string
+                card_number:
+                  type: string
+                  description: 4242424242424242
+                exp_month:
+                  type: string
+                  description: 12
+                card_year:
+                  type: string
+                  description: 2025
+                cvv:
+                  type: string
+                  description: 213
+                total_pay:
+                  type: string
+                  description: Total_Pay from fundDetails API
+                net_payable:
+                  type: string
+                  description: Net_Payable from fundDetails API
+                admin_charges:
+                  type: string
+                  description: Admin_Charges_@£1.5_Per_Hour from fundDetails API
+                bidding_fees:
+                  type: string
+                  description: Bidding_Fees_@10P_Per_Hour from fundDetails API
+                AOS_Account_Refund:
+                  type: string
+                  description: AOS_Account_Refund_Vat_@20% from fundDetails API
+                AOS_One_Off_Misc_Payment:
+                  type: string
+                  description: AOS_One_Off_Misc_Payment from fundDetails API
+                AOS_Standard_Addition_Per_Hour:
+                  type: string
+                  description: AOS_Standard_Addition_Per_Hour from fundDetails API
+      responses: 
+        '200':
+          description: Approved and Funded Successfully
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Server Error
+  /timesheetJobs/:
+    get:
+      security:
+        - bearerAuth: []
+      summary: Get TimeSheet Jobs Screen For a Job (Member) 
+      requestBody:
+        required: false
+        content:
+          application/json:
+      responses: 
+        '200':
+          description: Get Member Time Screen
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Server Error
+  /changeStatus/:
+    post:
+      security:
+        - bearerAuth: []
+      summary: Change Work Status (Member)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  description: active/inactive
+                application_id:
+                  type: string
+                  description: application id
+      responses: 
+        '200':
+          description: Status Changed
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Server Error
+  /jobsHistory/:
+    get:
+      security:
+        - bearerAuth: []
+      summary: Get Past Jobs(Member) 
+      requestBody:
+        required: false
+        content:
+          application/json:
+      responses: 
+        '200':
+          description: Past jobs
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Server Error
+  /pastJobDetails/{application_id}/:
+    get:
+      security:
+        - bearerAuth: []
+      summary: Get Past Job Details with work details
+      parameters:
+        - in: path
+          name: application_id
+          type: integer
+          required: true
+          description: Numeric ID of the application to get details 
+      requestBody:
+        required: false
+        content:
+          application/json:
+      responses: 
+        '200':
+          description: Past Job Details
+  /getFinances/:
+    get:
+      security:
+        - bearerAuth: []
+      summary: Get Finances Screen Data (Member)
+      requestBody:
+        required: false
+        content:
+          application/json:
+      responses: 
+        '200':
+          description: Finances Screen
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Server Error
+  /getInvoiceDetails/{application_id}/:
+    get:
+      security:
+        - bearerAuth: []
+      summary: Get Invoice Details with work details
+      parameters:
+        - in: path
+          name: application_id
+          type: integer
+          required: true
+          description: Numeric ID of the application to get details 
+      requestBody:
+        required: false
+        content:
+          application/json:
+      responses: 
+        '200':
+          description: Invoice Details
+  /inviteFriends/:
+    post:
+      security:
+        - bearerAuth: []
+      summary: Invite Friend(Member)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: email of friend whom you want to invite
+      responses: 
+        '200':
+          description: Send invitation Email
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Server Error
+  /addDispute/:
+    post:
+      security:
+        - bearerAuth: []
+      summary: Register a dispute(Employer function)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                dispute_type:
+                  type: string
+                  description: dispute type
+                amount:
+                  type: string
+                  description: dispute amount 
+                description:
+                  type: string
+                  description: dispute description
+                job_id: 
+                  type: string
+                  description: id of job to which complaint is related
+                member_id:
+                  type: string
+                  description: member id against which dispute is raised
+      responses: 
+        '200':
+          description: Dispute raised Successfully
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Server Error
+  /getDisputes:
+    get:
+      security:
+        - bearerAuth: []
+      summary: Get Disputes registered by an user
+      requestBody:
+        required: false
+        content:
+          application/json:
+      responses: 
+        '200':
+          description: Disputes Json
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Server Error
+  /memberAddDispute/:
+    post:
+      security:
+        - bearerAuth: []
+      summary: Register a dispute(Member function)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  description: dispute title 
+                details:
+                  type: string
+                  description: dispute details
+                job_id: 
+                  type: string
+                  description: id of job to which complaint is related
+                images:
+                  type: string
+                  description: [{"image_name":"base64 string","image2_name":"base64"}]
+      responses: 
+        '200':
+          description: Dispute raised Successfully
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Server Error
+  /getMemberDisputes:
+    get:
+      security:
+        - bearerAuth: []
+      summary: Get Disputes registered by a Member
+      requestBody:
+        required: false
+        content:
+          application/json:
+      responses: 
+        '200':
+          description: Disputes Json
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Server Error
+  
+

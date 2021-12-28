@@ -1,0 +1,519 @@
+{% extends 'Employer/base.html' %}
+{% block content %}
+    <!-- Page content -->
+	<div class="container-fluid mt--6">
+	<div class="row">
+	  <div class="col-xl-6 col-md-12">
+	    <div class="card bg-gradient-primary border-0">
+	      <!-- Card body -->
+	      <div class="card-body">
+	        <div class="row">
+	          <div class="col">
+	            <h5 class="card-title text-uppercase text-muted mb-0 text-white">Jobs Completed</h5>
+	            <span class="h2 font-weight-bold mb-0 text-white">{{ completed_jobs }}/{{ total_jobs }} </span>
+	            <div class="progress progress-xs mt-3 mb-0">
+	              <div class="progress-bar bg-success" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" style="width: {{ jobs_percent }}%;"></div>
+	            </div>
+	          </div>
+	          <!-- <div class="col-auto">
+	            <button type="button" class="btn btn-sm btn-neutral mr-0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	              <i class="fas fa-ellipsis-h"></i>
+	            </button>
+	            <div class="dropdown-menu dropdown-menu-right" style="">
+	              <a class="dropdown-item" href="#">Action</a>
+	              <a class="dropdown-item" href="#">Another action</a>
+	              <a class="dropdown-item" href="#">Something else here</a>
+	            </div>
+	          </div> -->
+	        </div>
+	        <p class="mt-3 mb-0 text-sm">
+	          <a href="/jobs/" class="text-nowrap text-white font-weight-600">See details</a>
+	        </p>
+	      </div>
+	    </div>
+	  </div>
+	  <div class="col-xl-6 col-md-12">
+	    <div class="card bg-gradient-info border-0">
+	      <!-- Card body -->
+	      <div class="card-body">
+	        <div class="row">
+	          <div class="col">
+	            <h5 class="card-title text-uppercase text-muted mb-0 text-white">Applications</h5>
+	            <span class="h2 font-weight-bold mb-0 text-white">{{ accepted_applications }}/{{ total_applications }}</span>
+	            <div class="progress progress-xs mt-3 mb-0">
+	              <div class="progress-bar bg-success" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: {{ app_percent }}%;"></div>
+	            </div>
+	          </div>
+	          <!-- <div class="col-auto">
+	            <button type="button" class="btn btn-sm btn-neutral mr-0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	              <i class="fas fa-ellipsis-h"></i>
+	            </button>
+	            <div class="dropdown-menu dropdown-menu-right">
+	              <a class="dropdown-item" href="#">Action</a>
+	              <a class="dropdown-item" href="#">Another action</a>
+	              <a class="dropdown-item" href="#">Something else here</a>
+	            </div>
+	          </div> -->
+	        </div>
+	        <p class="mt-3 mb-0 text-sm">
+	          <a href="/jobs/" class="text-nowrap text-white font-weight-600">See details</a>
+	        </p>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	<div class="card-deck flex-column flex-xl-row">
+	    <div class="card">
+	      <!-- Card header -->
+	      <div class="card-header">
+	        <h6 class="text-muted text-uppercase ls-1 mb-1">Overview</h6>
+	        <h5 class="h3 mb-0">Total Applications</h5>
+	      </div>
+	      <!-- Card body -->
+	      <div class="card-body">
+	        <!-- List group -->
+	        <ul class="list-group list-group-flush list my--3">
+	          <li class="list-group-item px-0">
+	            <div class="row align-items-center">
+	              <div class="col">
+	                <h5>Applications</h5>
+	                <div class="progress progress-xs mb-0">
+	                  <div class="progress-bar bg-orange" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
+	                </div>
+	              </div>
+	            </div>
+	          </li>
+	          <li class="list-group-item px-0">
+	            <div class="row align-items-center">
+	              <div class="col">
+	                <h5>Accepted</h5>
+	                <div class="progress progress-xs mb-0">
+	                  <div class="progress-bar bg-green" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: {{ app_percent }}%;"></div>
+	                </div>
+	              </div>
+	            </div>
+	          </li>
+	          <li class="list-group-item px-0">
+	            <div class="row align-items-center">
+	              <div class="col">
+	                <h5>Pending</h5>
+	                <div class="progress progress-xs mb-0">
+	                  <div class="progress-bar bg-red" role="progressbar" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100" style="width: {{ pending_percent  }}%;"></div>
+	                </div>
+	              </div>
+	            </div>
+	          </li>
+	          <li class="list-group-item px-0">
+	            <div class="row align-items-center">
+	              <div class="col">
+	                <h5>Rejected</h5>
+	                <div class="progress progress-xs mb-0">
+	                  <div class="progress-bar bg-teal" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width: {{ reject_percent }}%;"></div>
+	                </div>
+	              </div>
+	            </div>
+	          </li>
+	        </ul>
+	      </div>
+	    </div>
+
+	    <div class="card">
+	      <div class="card-header bg-transparent">
+	        <div class="row align-items-center">
+	          <div class="col">
+	            <h6 class="text-uppercase text-muted ls-1 mb-1">Jobs per Month</h6>
+	            <h2 class="h3 mb-0">Active Jobs</h2>
+	          </div>
+	        </div>
+	      </div>
+	      <div class="card-body">
+	        <!-- Chart -->
+	        <div class="chart">
+	        	<div class="chartjs-size-monitor">
+	        		<div class="chartjs-size-monitor-expand">
+	        			<div class=""></div>
+	        		</div>
+	        		<div class="chartjs-size-monitor-shrink">
+	        			<div class=""></div>
+	        		</div>
+	        	</div>
+	          	<!-- <canvas id="chart-bars" class="chart-canvas chartjs-render-monitor" width="309" height="350" style="display: block; width: 309px; height: 300px;"></canvas> -->
+	          	<div id="container"></div>
+	        </div>
+	      </div>
+	    </div>
+
+	  <!-- Team Members -->
+	  <div class="card" style="height:500px;overflow: auto;">
+	    <!-- Card header -->
+	    <div class="card-header">
+	      <!-- Title -->
+	      <h5 class="h3 mb-0">Members</h5>
+	    </div>
+	    <!-- Card body -->
+	    <div class="card-body">
+	      <!-- List group -->
+	      <ul class="list-group list-group-flush list my--3">
+	      	{% for member in members %}
+		        <li class="list-group-item px-0">
+		          <div class="row align-items-center">
+		            <div class="col-auto">
+		              <!-- Avatar -->
+		              <a href="#" class="avatar rounded-circle">
+		              	{% if member.profile_pic %}
+		                	<img alt="Image placeholder" src="{{ member.profile_pic }}">
+		                {% else %}
+		                	<img alt="Image placeholder" src="/static/images/dummy_user.png">
+		                {% endif %}
+		              </a>
+		            </div>
+		            <div class="col ml--2">
+		              <h4 class="mb-0">
+		                <a href="#!">{{ member.name }}</a>
+		              </h4>
+		              <span class="text-success">●</span>
+		              <small>{{ member.city }}</small>
+		            </div>
+		            <div class="col-auto">
+		              <button type="button" class="btn btn-sm btn-primary view_profile" data-id="{{ member.member_id }}">View</button>
+		            </div>
+		          </div>
+		        </li>
+		    {% endfor %}
+	      </ul>
+	    </div>
+	  </div>
+	</div>
+	<div class="row">
+	  <div class="col-xl-7 mb-5">
+	    <div class="card">
+	      <div class="card-header border-0">
+	        <div class="row align-items-center">
+	          <div class="col">
+	            <h3 class="mb-0">Recent Jobs</h3>
+	          </div>
+	          <div class="col text-right">
+	            <a href="/jobs/" class="btn btn-sm btn-primary">View all</a>
+	          </div>
+	        </div>
+	      </div>
+	      <div class="table-responsive" style="height:420px;">
+	        <!-- Projects table -->
+	        <div class="table-responsive">
+	          <table class="table align-items-center table-flush">
+	            <thead class="thead-light">
+	              <tr>
+	                <th scope="col" class="sort" data-sort="name">Title</th>
+	                <th scope="col" class="sort" data-sort="budget">Budget</th>
+	                <th scope="col" class="sort" data-sort="status">Status</th>
+	                <th scope="col">Users</th>
+	                <th scope="col"></th>
+	              </tr>
+	            </thead>
+	            <tbody class="list">
+	            	{% if jobs %}
+	            		{% for job in jobs %}
+			              <tr>
+			               	<th scope="row">
+			                  <div class="media align-items-center">
+			                    <a href="#" class="avatar rounded-circle mr-3">
+			                    	{% if profile_pic %}
+			                      		<img alt="Image placeholder" src="{{ profile_pic }}">
+			                    	{% else %}
+			                    		<img alt="Image placeholder" src="/static/images/employer.jpeg">
+			                    	{% endif %}
+			                    </a>
+			                    <div class="media-body">
+			                    	{% if job.status == 'Active' %}
+			                      		<a href="/jobsgoing/{{ job.id }}"><span class="name mb-0 text-sm">{{ job.business_name }}</span></a>
+			                      	{% elif job.status == 'Completed' %}
+			                      		<a href="/jobsHistory/{{ job.id }}"><span class="name mb-0 text-sm">{{ job.business_name }}</span></a>
+			                    	{% else %}
+			                			<a href="/jobsList/{{ job.id }}/"><span class="name mb-0 text-sm">{{ job.business_name }}</span></a>
+			                		{% endif %}
+			                    </div>
+			                  </div>
+			                </th>
+			                <td class="budget">
+			                  {{ job.budget }}
+			                </td>
+			                <td>
+			                  <span class="badge badge-dot mr-4">
+			                  	{% if job.status == 'Active' %}
+			                  		<i class="bg-success"></i>
+			                  	{% else %}
+			                    	<i class="bg-warning"></i>
+			                    {% endif %}
+			                    <span class="status">{{ job.status }}</span>
+			                  </span>
+			                </td>
+			                <td>
+			                  <div class="avatar-group">
+			                  	{% for mem in job.members %}
+				                    <a href="#" class="avatar avatar-sm rounded-circle member_info" data-id="{{ mem.member_id }}"data-toggle="tooltip" data-original-title="{{ mem.name }}">
+				                    	{% if mem.profile_pic %}
+				                    		<img alt="Image placeholder" src="{{ mem.profile_pic }}">
+				                    	{% else %}
+				                      		<img alt="Image placeholder" src="/static/images/dummy_user.png">
+				                    	{% endif %}
+				                    	
+				                    </a>
+			                    {% endfor %}
+			                
+			                  </div>
+			                </td>
+
+			                <!-- <td class="text-right">
+			                  <div class="dropdown">
+			                    <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			                      <i class="fas fa-ellipsis-v"></i>
+			                    </a>
+			                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+			                      <a class="dropdown-item" href="#">Action</a>
+			                      <a class="dropdown-item" href="#">Another action</a>
+			                      <a class="dropdown-item" href="#">Something else here</a>
+			                    </div>
+			                  </div>
+			                </td> -->
+			              </tr>
+			            {% endfor %}
+			        {% else %}
+			        	<div class="col-md-12 py-9 d-flex justify-content-around">
+	                      <div class="col-md-5 text-center">
+	                          <img src="/static/images/Enquirer/svg/no jobs.svg" alt="No Jobs" />
+	                          <h4 class="mt-3">No Jobs active</h4>
+	                          <p class="text-muted">You haven't any job posted yet, add jobs to see all the listing of the jobs.</p>
+	                      </div>
+                  		</div>
+			        {% endif %}
+	              
+	            </tbody>
+	          </table>
+	        </div>
+	      </div>
+	    </div>
+	  </div>
+	  <div class="col-xl-5 mb-5">
+	    <!-- Vector map -->
+	    <!--* Card header *-->
+	    <!--* Card body *-->
+	    <!--* Card init *-->
+	    <div class="card widget-calendar mb-5">
+	      <!-- Card header -->
+	      <div class="card-header">
+	        <div class="row align-items-center">
+	          <div class="col-8">
+	            <!-- Title -->
+	            <h5 class="h3 mb-0">Real time</h5>
+	          </div>
+	          <!-- <div class="col-4 text-right">
+	            <a href="#!" class="btn btn-sm btn-neutral">Action</a>
+	          </div> -->
+	        </div>
+	      </div>
+	      <!-- Card body -->
+	      <div class="card-body">
+	        <!-- Vector map -->
+	   			<div id="map" style="height:400px;width: 400px;"></div>
+	        <!-- List group -->
+	        <ul class="list-group list-group-flush list my--3">
+	        {% for job in jobs %}
+	        	{% if job.status == 'Active' %}
+		          <li class="list-group-item px-0">
+		            <div class="row align-items-center">
+		              <div class="col-auto">
+		                <!-- Country flag -->
+		                <img src="/static/images/Enquirer/flags-GB.png" alt="Country flag">
+		              </div>
+		              <div class="col">
+		                <small>Country:</small>
+		                <h5 class="mb-0">United Kingdom</h5>
+		              </div>
+		              <div class="col">
+		                <small>Job:</small>
+		                <h5 class="mb-0">{{ job.business_name }}</h5>
+		              </div>
+		              <div class="col">
+		                <small>Users:</small>
+		                <h5 class="mb-0">{{ job.members|length }}</h5>
+		              </div>
+		            </div>
+		          </li>
+		        {% endif %}
+	        {% endfor %}
+	        </ul>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+	<div class="col-md-4">
+            <div class="modal fade modal1" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal- modal-dialog-centered modal-" id="test" role="document">
+                    <div class="modal-content">
+                        <div class="modal-body row py-2">
+                            <div class="col-md-12 p-0">
+                                <div class="card card-profile shadow mb-0">
+                                    <div class="row justify-content-center">
+                                        <div class="col-lg-3 order-lg-2">
+                                            <div class="card-profile-image">
+                                                <a href="#"> <img src="images/theme-team-4.jpg" class="rounded-circle" /> </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-header text-center border-0 pt-md-4 pb-md-4">
+                                        <div class="d-flex"><button type="button" class="btn btn-link p-0 ml-auto" data-dismiss="modal">Close</button></div>
+                                    </div>
+                                    <div class="card-body pt-0">
+                                        <div class="row">
+                                            <div class="col">
+                                                <div class="card-profile-stats d-flex justify-content-center">
+                                                    <div><span class="heading">22</span> <span class="description">Jobs Done</span></div>
+                                                    <div>
+                                                        <span class="heading">
+                                                            <span class="fa fa-star checked"></span> <span class="fa fa-star checked"></span> <span class="fa fa-star checked"></span> <span class="fa fa-star checked"></span>
+                                                            <span class="fa fa-star"></span>
+                                                        </span>
+                                                        <span class="description">Rating</span>
+                                                    </div>
+                                                    <div><span class="heading text-lowercase">€12/hr </span> <span class="description">Price</span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="text-center">
+                                            <h5 class="h3">Jessica Jones</h5>
+                                            <div class="h4 font-weight-300">Bucharest, Romania</div>
+                                            <div class="h4 badge bg-success text-white mb-0">Badge No. - 254516</div>
+                                            <div class="h5 mt-4 font-weight-600">
+                                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley
+                                                of type and scrambled it to make a type specimen book.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer bg-secondary">
+                            <a class="btn btn-sm btn-primary" href="#">Download Resume</a> <a href="/chats/" class="btn btn-sm btn-success">Contact</a><a href="#" class="ml-auto"><i class="ni ni-favourite-28"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+
+{% endblock %}
+{% block extra_js %}
+	<script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAbOQGYshvI_FCLYFaCWhYsXN5-x1T3ENk&callback=initMap&libraries=&v=weekly"
+      async
+    ></script>
+	<script src="https://code.highcharts.com/highcharts.js"></script>
+	<script type="text/javascript">
+		// Initialize and add the map
+		function initMap() {
+			  	$.ajax({  
+		          	type: "GET",
+		          	url: '/getMapData/',
+		          	success:function(response){
+		          		console.log('data>>',response.city_list)
+		          		var locations = response.city_list
+		          		if (locations.length > 0){
+						    // The map, centered at Uluru
+							const map = new google.maps.Map(document.getElementById("map"), {
+							    zoom: 6,
+							    center:{ lat: locations[0][1], lng: locations[0][2] },
+							});
+							// The marker, positioned at Uluru
+							var marker, i;
+
+						    for (i = 0; i < locations.length; i++) {  
+						      marker = new google.maps.Marker({
+						        position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+						        map: map
+						      });
+							}
+		          		}else{
+		          			const map = new google.maps.Map(document.getElementById("map"), {
+							    zoom: 5,
+							    center:{ lat: 51.507351, lng: -0.127758 },
+							});
+							marker = new google.maps.Marker({
+						        position: new google.maps.LatLng(51.507351, -0.127758),
+						        map: map
+						      });
+		          		}
+		          	}
+		        })
+		}
+	</script>
+
+	<script type="text/javascript">
+		$.ajax({  
+          	type: "GET",
+          	url: '/getDashboardChartData/',
+          	success:function(response){
+	            console.log('data>>',response.counts)
+	            var jobs_counts = response.counts
+				Highcharts.chart('container', {
+				    chart: {
+				        type: 'line'
+				    },
+				    title: {
+				        text: 'Jobs Per Month'
+				    },
+				    subtitle: {
+				        text: 'Source: OpenArc DB'
+				    },
+				    xAxis: {
+				        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+				    },
+
+				    plotOptions: {
+				        series: {
+				            pointWidth: 20
+				        }
+				    },
+
+				    series: [{
+				    	name:'Jobs',
+				        data: jobs_counts
+				    }]
+				});
+			}
+        })
+
+        $('.member_info').click(function(){
+            var member_id  = $(this).attr('data-id')
+            data = {
+              "member_id" : member_id,
+            }
+            $.ajax({  
+                type: "POST",
+                url: '/getMemberProfile/',
+                data: data,
+                success:function(response){
+                    console.log('html',response)
+                    $('#test').html(response.html)
+                    $('.modal1').modal('show');
+               }
+            }) 
+        })
+
+        $('.view_profile').click(function(){
+            var member_id  = $(this).attr('data-id')
+            data = {
+              "member_id" : member_id,
+            }
+            $.ajax({  
+                type: "POST",
+                url: '/getMemberProfile/',
+                data: data,
+                success:function(response){
+                    console.log('html',response)
+                    $('#test').html(response.html)
+                    $('.modal1').modal('show');
+               }
+            }) 
+        })
+	</script>
+{% endblock %}

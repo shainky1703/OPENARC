@@ -1,0 +1,98 @@
+{% extends 'Employer/base.html' %}
+{% block header %}
+    <div class="header pb-3">
+                <div class="container-fluid">
+                    <div class="header-body">
+                        <div class="row align-items-center py-4">
+                            <div class="col-lg-6 col-7">
+                                <h2>{{ job_dict.business_name }}</h2>
+                                <p><b>Type:</b> {{ job_dict.job_type }} | <b>Duration:</b> {{ job_dict.shift_start_date }} - {{ job_dict.shift_end_date }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+{% endblock %}
+{% block content %}
+    <div class="resident_description_data container-fluid">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <div class="my-4">
+                                <h5>DESCRIPTION</h5>
+                                <p>
+                                    {{ job_dict.job_description }}
+                                </p>
+                                <h5>Hired Members</h5>
+                                <div class="d-flex justify-content-around row">
+                                    {% for member in hired_members %}
+                                        <a href="#" data-toggle="collapse"  class="col-sm-6 collapsed member_details" data-id="{{ member.application_id }}" aria-expanded="true">
+                                        <div class="solid">
+                                            <div class="float-left">
+                                                <div class="mb-2">
+                                                    <span class="text-muted text-sm">{{ member.today_date }}</span>
+                                                    {% if member.member_status == 'active' %}
+                                                        <span class="text-success">●</span><small> Active</small>
+                                                    {% elif member.member_status == 'inactive' %}
+                                                        <span class="text-secondary" style="color: #c6c9cc !important;">●</span><small> Offline</small>
+                                                    {% else %}
+                                                        <span class="text-warning">●</span><small> Away</small>
+                                                    {% endif %}
+                                                </div>
+                                                {% if member.profile_pic %}
+                                                    <img src="{{ member.profile_pic }}" class="img-circle user-img-circle float-left mr-2" alt="User" />
+                                                {% else %}
+                                                    <img src="/static/images/theme-team-4.jpg" class="img-circle user-img-circle float-left mr-2" alt="User" />
+                                                {% endif %}
+                                                <div class="float-left">
+                                                    <h3 class="mb-0">{{ member.member_name }}</h3>
+                                                    {% if member.member_status == 'active' %}
+                                                        <span class="text-muted text-xs">Clock in: <b>{{ member.clock_in }}</b></span>
+                                                    {% elif member.member_status == 'inactive' %}
+                                                        <span class="text-muted text-xs">Clocked out</span>
+                                                    {% else %}
+                                                        
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                            <div class="float-right"><i class="fa fa-map-marker-alt text-xl my-4 text-success"></i></div>
+                                        </div>
+                                        </a>
+                                    {% endfor %}
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 p-0">
+                        <div class="card-body today_history">
+                            <img src="/static/images/loader.gif" id="loader" style="display: none;height: 200px;width: 200px;margin-left: 100px;
+                            margin-top: 100px" class="img-circle user-img-circle" alt="User" />
+                        </div>
+                    </div>
+                </div>
+    </div>
+    </div>
+{% endblock %}
+{% block extra_js %}
+    <script type="text/javascript">
+        $('.member_details').click(function(){
+            $('#loader').show();
+            var application_id = $(this).attr('data-id')
+            data = {
+              "application_id" : application_id,
+            }
+            $.ajax({  
+                type: "POST",
+                url: '/getMemberTodayHistory/',
+                data: data,
+                success:function(response){
+                    console.log('html',response)
+                    $('.today_history').html(response.html)
+                    $('#loader').hide();
+                    // $('.work_history').show();
+               }
+            }) 
+        })
+    </script>
+{% endblock %}

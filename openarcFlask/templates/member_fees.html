@@ -1,0 +1,55 @@
+{% extends 'dashboard.html' %}
+{% block extra_css %}
+	<link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet">
+{% endblock %}
+{% block content %}
+    <div class="app-main__outer">
+        <div class="app-main__inner">
+            	<ul class="body-tabs body-tabs-layout tabs-animated body-tabs-animated nav">
+                    <li class="nav-item">
+                        <a role="tab" class="nav-link active" id="tab-0" data-toggle="tab" href="#tab-content-0">
+                        <span>Member Fee Parameters</span>
+                        </a>
+                    </li>
+                </ul>
+                <div class="col-lg-12 login-key">
+                    {% for mesg in get_flashed_messages() %}
+                      <h3>{{ mesg }}</h3>
+                    {% endfor %}
+                </div>
+                <div class="tab-content">
+                    <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
+                        <div class="main-card mb-3 card">
+                            <div class="card-body">
+                                <form class="" method="POST">
+                                    <div class="form-row">
+                                        <div class="col-md-12">
+                                            <div class="position-relative form-group"><label for="exampleEmail11" class="">AOS Standard Addition Per Hour</label><input name="aos_standard_addition_per_hour" id="aos_standard_addition_per_hour" placeholder="AOS Standard Addition Per Hour" type="text" class="form-control" value="{{ member_fee.aos_standard_addition_per_hour }}"></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="col-md-12">
+                                            <div class="position-relative form-group"><label for="exampleEmail11" class="">AOS Arrears Payments</label><input name="aos_arrears_payments" id="aos_arrears_payments" placeholder="AOS Arrears Payments" type="text" class="form-control" value="{{ member_fee.aos_arrears_payments }}"></div>
+                                        </div> 
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="col-md-12">
+                                            <div class="position-relative form-group"><label for="exampleEmail11" class="">AOS One Off Deductions</label><input name="aos_one_off_deductions" id="aos_one_off_deductions" placeholder="AOS One Off Deductions" type="text" class="form-control" value="{{ member_fee.aos_one_off_deductions }}"></div>
+                                        </div> 
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="col-md-12">
+                                            <div class="position-relative form-group"><label for="exampleEmail11" class="">Admin Per Hour Charges(Pence)</label><input name="admin_charges_per_hour_pence" id="admin_charges_per_hour_pence" placeholder="Admin Per Hour Charges(Pence)" type="text" class="form-control" value="{{ member_fee.admin_charges_per_hour_pence }}"></div>
+                                        </div> 
+                                    </div>
+                                    <button type="submit" id="update_button" class="btn btn-primary">Update</button>
+                                </form>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+    	</div>
+	</div>
+
+{% endblock %}

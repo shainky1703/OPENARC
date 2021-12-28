@@ -1,0 +1,73 @@
+<div class="modal fade" id="modal-default1" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal- modal-dialog-centered modal-" role="document">
+                <div class="modal-content">
+                    <div class="modal-body row py-2">
+                        <div class="col-md-12 p-0">
+                            <div class="card card-profile shadow mb-0">
+                                <div class="card-header bg-secondary text-center border-0 pt-2 pb-md-2">
+                                    <div class="float-left">
+                                        <h3 class="h3 text-lg mb-0">Fund Job for {{ fund_details.business_name }}</h3>
+                                        <div class="h4 text-md text-left text-success mb-0">{{ fund_details.Net_Payable }}</div>
+                                    </div> <button type="button" class="btn btn-link p-0 ml-auto my-3 float-right" data-dismiss="modal">X</button></div>
+                                <div class="card-body profiletable">
+                                    <table class="col-md-12">
+                                        <tbody>
+                                            <tr>
+                                                <td>Standard Pay per hour</td>
+                                                <td>{{ fund_details.Pay_Per_Hour }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>AOS Standard addition per hour</td>
+                                                <td>{{ fund_details.AOS_Standard_Addition_Per_Hour }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>AOS One of Misc Payment</td>
+                                                <td>{{ fund_details.AOS_One_Off_Misc_Payment }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Total Expected Hours</b></td>
+                                                <td>{{ fund_details.Total_Expected_Hours_Worked }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Total Pay</b></td>
+                                                <td>{{ fund_details.Total_Pay }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Admin charge @ £1.5/hr</td>
+                                                <td>{{ fund_details.Admin_Charges }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Bidding fees @ £0.5/hr</td>
+                                                <td>{{ fund_details.Bidding_Fees }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Subtotal</td>
+                                                <td>{{ fund_details.Sub_Total }}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <h3 class="mt-4">Additions</h3>
+                                    <table class="col-md-12">
+                                        <tbody>
+                                            <tr>
+                                                <td>*AOS Account Refunds</td>
+                                                <td>£0</td>
+                                            </tr>
+                                            <tr>
+                                                <td>VAT @ 20%</td>
+                                                <td>{{ fund_details.Vat }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Net Pay</td>
+                                                <td>{{ fund_details.Net_Payable }}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer bg-secondary p-2"> <a class="btn btn-md btn-primary mx-auto" href="/fundJob/{{ fund_details.application_id }}/">Fund Now</a></div>
+                </div>
+            </div>
+        </div>

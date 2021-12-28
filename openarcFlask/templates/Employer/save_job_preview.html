@@ -1,0 +1,95 @@
+{% extends 'Employer/base.html' %}
+{% block header %}
+    <div class="header pb-4">
+            <div class="container-fluid">
+                <div class="header-body">
+                    <div class="row align-items-center py-4">
+                        <div class="col-lg-6 col-7"> <a href="/jobsList/{{job_details.id}}/" class="previous text-xl float-left mr-3">&#8249;</a>
+                            <div>
+                                <h6 class="h2 mb-0">{{ job_details.business_name }} </h6> <label class="mb-0">Loc: </label>{{ job_details.city }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+{% endblock %}
+{% block content %}
+    <div class="resident_description_data container-fluid pb-0">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="dmcheading rsidency_table_datas mt-2">
+                                    <div class="inn_resdent">
+                                        <h6>Type</h6>
+                                        <p class="mb-0">{{ job_details.job_type }}</p>
+                                    </div>
+                                    <div class="inn_resdent">
+                                        <h6>Pay Expectation</h6>
+                                        <p class="mb-0">{{ job_details.budget }}</p>
+                                    </div>
+                                    <div class="inn_resdent">
+                                        <h6>No of Vacancies</h6>
+                                        <p class="mb-0">{{ job_details.no_of_vacancies }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="my-4">
+                            <h5> DESCRIPTION</h5>
+                            <p>{{ job_details.job_description }}</p>
+                            <form class="residencs_forms_data">
+                                <div class="row">
+                                    <div class="col-md-12 mb-5">
+                                        <div class="row">
+                                            <div class="col"> <label for="start_date">Start Date</label> <input type="text" class="form-control" id="start_date" name="start_date" value="{{ job_details.start_date }}" disabled="true" /></div>
+                                            <div class="col"> <label for="end_date">End Date</label> <input type="text" class="form-control" id="end_date" name="end_date" value="{{ job_details.end_date }}" disabled="true" /></div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col"> <label for="start_time">Start Time</label> <input type="text" class="form-control" id="start_time" name="start_time" value="{{ job_details.start_time }}" disabled="true" /></div>
+                                            <div class="col"> <label for="end_time">End Time</label> <input type="text" class="form-control" id="end_time" name="end_time" value="{{ job_details.end_time }}" disabled="true" /></div>
+                                        </div>
+                                        <div class="form-group"> 
+                                            <label for="job-type">Job Type</label> 
+                                            <select class="custom-select my-1 mr-sm-2" id="job_type" disabled="true">
+                                                <option value="{{ job_details.job_type }}" id="contract">{{ job_details.job_type }}</option></select>
+                                        </div>
+                                        <div class="form-group"> 
+                                            <label for="budget">Budget</label> 
+                                            <input type="text" class="form-control" id="budget" name="budget" min="0" value="{{ job_details.budget }}" placeholder="£25/hr" disabled="true" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="address">Address </label> <input type="text" class="form-control" id="address" name="address" value="{{ job_details.address }}" placeholder="45 High Street" disabled="true" />
+                                        </div>
+                                        <div class="form-group"> 
+                                            <label for="location">Location </label> <input type="text" class="form-control" id="location" name="location" value="{{ job_details.city }}" placeholder="London" disabled="true" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="location">Shift Time</label>
+                                            {% if job_details.shift_type == 'Day' %} 
+                                                <input type="radio" id="day" name="shift" value="day" checked="" disabled="true" /> <label for="day">Day</label>
+                                                <input type="radio" id="night" name="shift" value="night" disabled="true"/> <label for="night">Night</label> 
+                                            {% else %}
+                                                <input type="radio" id="day" name="shift" value="day"  disabled="true" /> <label for="day">Day</label>
+                                                <input type="radio" id="night" name="shift" value="night" checked="" disabled="true"/> <label for="night">Night</label>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="text-center mb-5"> 
+                                    <!-- <a href="/editJob/" class="btn save-to-draft-btn btn-border mt-4" name="">Edit</a> --> 
+                                    <a href="/postJob/" class="btn btn-site-white btn-border mt-4" name="">Post Job</a></div>
+                            </div>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+{% endblock %}
+{% block extra_js %}
+    
+{% endblock %}
